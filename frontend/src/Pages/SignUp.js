@@ -102,6 +102,9 @@ const SignUp = () => {
         </div>
       </form>
       {/* <div id="animationCont"></div> */}
+      <div className="textBg">
+        SIGNUP
+      </div>
     </div>
   );
 };

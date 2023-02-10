@@ -13,7 +13,10 @@
   font-family: 'Poppins', sans-serif;
 }
 /*   General----------------------------------- */
-
+    body::-webkit-scrollbar {
+      display: none;
+    }
+    
 .colorWhite{
   color: #fff;
 }
@@ -99,7 +102,16 @@
   justify-content: start;
   align-items: start;
 }
+.textBg{
+    position: absolute;
+    font-size: 600px ;
+    background: linear-gradient(rgba(255, 255, 255, 0.6),rgba(255, 255, 255,0.3));
+    backdrop-filter: blur(0.5rem);
+    color: rgba(0,0,0,0);
+    background-clip: text;
+    user-select: none;
 
+}
 /* signUp block ends  */
 
 
@@ -152,8 +164,81 @@
       justify-content: center;
       align-items: center;
 }
-
-
-
-
+#loginForm{
+      z-index: 99;
+      height: 60vh;
+      width: 40vw;
+      background: url("./assets/Login.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 2px 2px 10px rgb(0, 0, 0, 0.4);
+}
 /*  blockk ends  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*   ---------------------------------Responsive --------------------------------------- */
+@media only screen and (max-width : 1000px){
+   .textBg::-webkit-scrollbar{
+       display: none;
+   }
+   body::-webkit-scrollbar{
+       display: none;
+   }
+   .textBg{
+    font-size: 300px;
+   }
+
+} 
+
+@media only screen and (max-width : 600px) {
+  .textBg::-webkit-scrollbar {
+    display: none;
+  }
+        body::-webkit-scrollbar {
+          display: none;
+        }
+    #signUpForm{
+      width: 90%;
+    }
+    #Login{
+      width: 90vw;
+    }
+
+  .textBg {
+    display: none;
+    font-size: 300px;
+  }
+
+}
