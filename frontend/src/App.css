@@ -42,6 +42,24 @@
 /* ---------------------------------------- */
 
 
+/*      Home         */
+.Home{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f0c29;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+/*      Home Ends   */
+
 /*   signUp page */
 
 .SignUp{
@@ -182,11 +200,51 @@
 
 
 
+/*  sidebar */
 
+.Sidebar{
+  z-index: 99999;
+  left: 0;
+  position: absolute;
+  width: 80px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(103, 95, 173,0.5);
+  backdrop-filter: blur(0.4rem);
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.5);
+}
 
+.Sidebar li{
+   width: 100%;
+   list-style: none;
+   padding: 1rem;
+   font-size: 21px;
+   color: #fff;
+   /* background-color: yellow; */
+   margin: 0.8rem 0px;
+}
+.profileList{
+  margin: 5px 0px;
+   min-height: 50px;
+   min-width: 50px;
+   border-radius: 50%;
+   background-color: rgb(255, 255, 255);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
 
-
-
+.sidebarRouteBtn{
+  height: 100%;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
 
 
 
@@ -223,17 +281,17 @@
 } 
 
 @media only screen and (max-width : 600px) {
-  .textBg::-webkit-scrollbar {
-    display: none;
-  }
-        body::-webkit-scrollbar {
+    .textBg::-webkit-scrollbar {
+       display: none;
+    }
+    body::-webkit-scrollbar {
           display: none;
         }
     #signUpForm{
-      width: 90%;
+      width: 85%;
     }
-    #Login{
-      width: 90vw;
+    #loginForm{
+      width: 85%;
     }
 
   .textBg {
