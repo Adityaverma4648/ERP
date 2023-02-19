@@ -1,12 +1,15 @@
 package com.backend.erp.service;
 
 import com.backend.erp.request.AuthenticationRequest;
+import com.backend.erp.request.TodoRequest;
 import com.backend.erp.response.AuthenticationResponse;
 import com.backend.erp.request.RegisterRequest;
 import com.backend.erp.config.JwtService;
 import com.backend.erp.repository.UserRepository;
 import com.backend.erp.model.Role;
 import com.backend.erp.model.User;
+import com.backend.erp.response.TokenRequest;
+import com.backend.erp.response.UserDataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,5 +59,17 @@ public class AuthenticationServiceImpl implements  AuthenticationService{
                 .token(jwtToken)
                 .message("success")
                 .build();
+    }
+
+    public UserDataResponse fetch(TokenRequest request) {
+        var username = jwtService.extractUsername(request.getToken());
+        var user = userRepository.findByEmail(username).orElseThrow();
+
+            return UserDataResponse.builder()
+                    .id(user.getId())
+                    .username(user.getUsername())
+                    .name(user.getName())
+                    .email(user.getEmail())
+                    .build();
     }
 }

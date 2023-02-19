@@ -1,7 +1,10 @@
 package com.backend.erp.controller;
 
 import com.backend.erp.request.AuthenticationRequest;
+import com.backend.erp.request.TodoRequest;
 import com.backend.erp.response.AuthenticationResponse;
+import com.backend.erp.response.TokenRequest;
+import com.backend.erp.response.UserDataResponse;
 import com.backend.erp.service.AuthenticationServiceImpl;
 import com.backend.erp.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,4 +28,8 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
+    @GetMapping("/fetch")
+    public ResponseEntity<UserDataResponse> register(@RequestBody TokenRequest request) {
+        return ResponseEntity.ok(service.fetch(request));
+    }
 }
