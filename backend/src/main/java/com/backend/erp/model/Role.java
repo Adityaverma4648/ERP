@@ -1,4 +1,4 @@
-package com.backend.erp.user;
+package com.backend.erp.model;
 
 public enum Role {
     USER,

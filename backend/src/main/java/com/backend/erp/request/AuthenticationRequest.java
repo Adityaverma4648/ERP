@@ -1,4 +1,4 @@
-package com.backend.erp.auth;
+package com.backend.erp.request;
 
 
 import lombok.AllArgsConstructor;
@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
-    private String username;
+public class AuthenticationRequest {
     private String email;
-    private String password;
+    String password;
 }

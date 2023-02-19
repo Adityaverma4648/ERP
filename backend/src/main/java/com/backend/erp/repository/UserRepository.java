@@ -1,6 +1,6 @@
 package com.backend.erp.repository;
 
-import com.backend.erp.user.User;
+import com.backend.erp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,9 +1,12 @@
-package com.backend.erp.auth;
+package com.backend.erp.service;
 
+import com.backend.erp.request.AuthenticationRequest;
+import com.backend.erp.response.AuthenticationResponse;
+import com.backend.erp.request.RegisterRequest;
 import com.backend.erp.config.JwtService;
 import com.backend.erp.repository.UserRepository;
-import com.backend.erp.user.Role;
-import com.backend.erp.user.User;
+import com.backend.erp.model.Role;
+import com.backend.erp.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements  AuthenticationService{
 
     private final UserRepository userRepository;
 
@@ -23,8 +26,15 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        var userExist = userRepository.findByEmail(request.getEmail());
+        if (userExist.isPresent()) {
+            return AuthenticationResponse.builder()
+                    .message("User with this email already exist")
+                    .build();
+        }
         var user = User.builder()
                 .username(request.getUsername())
+                .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
@@ -33,6 +43,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .message("success")
                 .build();
     }
 
@@ -43,6 +54,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .message("success")
                 .build();
     }
 }
