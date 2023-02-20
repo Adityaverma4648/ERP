@@ -20,10 +20,10 @@ public class TodoServiceImpl implements TodoService {
 
     private final JwtService jwtService;
 
-    public SuccessResponse add(TodoRequest request) {
-        var username = jwtService.extractUsername(request.getToken());
-        var user = userRepository.findByEmail(username).orElseThrow();
-
+    public SuccessResponse add(TodoRequest request, String authToken) {
+        authToken = authToken.substring(7);
+        var username = jwtService.extractUsername(authToken);
+        var user = userRepository.findByUsername(username).orElseThrow();
 
         var todo = Todo.builder()
                 .user(user)

@@ -14,8 +14,8 @@ public class TodoController {
     private TodoServiceImpl service;
 
     @PostMapping("/add")
-    public ResponseEntity<SuccessResponse> register(@RequestBody TodoRequest request) {
-        return ResponseEntity.ok(service.add(request));
+    public ResponseEntity<SuccessResponse> register(@RequestBody TodoRequest request,@RequestHeader(value="Authorization") String authToken) {
+        return ResponseEntity.ok(service.add(request,authToken));
     }
 
 }

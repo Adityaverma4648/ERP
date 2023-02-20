@@ -29,7 +29,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/fetch")
-    public ResponseEntity<UserDataResponse> register(@RequestBody TokenRequest request) {
-        return ResponseEntity.ok(service.fetch(request));
+    public ResponseEntity<UserDataResponse> register(@RequestBody TokenRequest request,@RequestHeader(value="Authorization") String authToken) {
+        return ResponseEntity.ok(service.fetch(request,authToken));
     }
 }

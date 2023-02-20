@@ -61,9 +61,10 @@ public class AuthenticationServiceImpl implements  AuthenticationService{
                 .build();
     }
 
-    public UserDataResponse fetch(TokenRequest request) {
-        var username = jwtService.extractUsername(request.getToken());
-        var user = userRepository.findByEmail(username).orElseThrow();
+    public UserDataResponse fetch(TokenRequest request,String authToken) {
+        authToken = authToken.substring(7);
+        var username = jwtService.extractUsername(authToken);
+        var user = userRepository.findByUsername(username).orElseThrow();
 
             return UserDataResponse.builder()
                     .id(user.getId())

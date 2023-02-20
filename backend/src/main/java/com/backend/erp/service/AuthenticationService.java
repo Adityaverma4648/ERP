@@ -12,5 +12,5 @@ public interface AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request);
 
-    public UserDataResponse fetch(TokenRequest request);
+    public UserDataResponse fetch(TokenRequest request,String authToken);
     }
