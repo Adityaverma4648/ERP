@@ -116,8 +116,8 @@
 .submitInpCont{
   width: 80%;
   display: flex;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 .textBg{
     position: absolute;
@@ -135,7 +135,9 @@
 
 
 /*  calender---------------------------------------------------------------------------------------------------------- */
-.Calender{
+.Event{
+  height: 100vh;
+  width: 100vw;
   background: linear-gradient(45deg, #24243e ,#2e6b74 , #302b63,#be2525 , #0f0c29);
 }
 
@@ -176,7 +178,7 @@
       align-items: center;
       box-shadow: 2px 2px 10px rgb(0, 0, 0, 0.4);
 }
-/*  blockk ends  */
+/*  block ends  */
 
 
 
@@ -223,11 +225,13 @@
   /* background-color: red; */
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 
-
+.toggleSideBar{
+   display: none;
+}
 
 
 
@@ -274,10 +278,44 @@
     #loginForm{
       width: 85%;
     }
-
+    .homeHeadingCont{
+      width: 80%;
+    }
+   
   .textBg {
     display: none;
     font-size: 300px;
+  }
+  .Sidebar{
+    display: none;
+  }
+  .Welcome{
+    width: 90vw;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: linear-gradient(45deg,rgb(1, 79, 143),rgb(64, 42, 161));
+  }
+  .welcomeText{
+     width: 80%;
+     height: 80%;
+     z-index: 2;
+     position: relative;
+     background: linear-gradient(rgba(255,255,255,0.4),rgba(255,255,255,0.4));
+     backdrop-filter: blur(0.1rem);
+     border-radius: 15px;
+    }
+  .illustratonCont{
+    width: 100%;
+     position: absolute;
+  }
+  .illustratonCont img{
+    width: 100vw;
+    opacity: 0.8;
+  }
+  .toggleSideBar{
+    display: block;
+    cursor: pointer;
   }
 
 }

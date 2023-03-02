@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaHome,
@@ -6,10 +7,12 @@ import {
   FaCalendar,
   FaCog,
   FaExclamationTriangle,
-  FaSignOutAlt
+  FaSignOutAlt,
+  FaStream
 } from "react-icons/fa";
-const Sidebar = () => {
 
+
+const Sidebar = () => {
 
   const NavigationElement = [{
      id : 1,
@@ -50,17 +53,20 @@ const Sidebar = () => {
 }
 ]
 
+const [toggler,setToggler] = useState(false);
+
   return (
-    <div className="Sidebar">
+    <>  
+        <div className="toggleSideBar top-0 left-0 absolute text-white m-3 p-5 bg-slate-500" onClick={(e)=>{setToggler(true)}} >
+             <FaStream />
+        </div>
+       <div className="Sidebar" id="Sidebar">
        <div className="py-1 h-3/4">
        <div className="logo flex items-center justify-center text-gray-100 ">
           <h4 className="py-5">
              LOGO
           </h4>
       </div>
-        {/* <div className="profile w-full flex items-center justify-center bg-gray-200 border-4 border-indigo-500/50 rounded text-gray-100 h-12">
-           {/* <img src="#" alt="profile" /> 
-       </div> */}
        <ul className="py-4 mt-3 h-2/4">
           {
             NavigationElement?.slice(0,3).map((d)=>{
@@ -87,7 +93,9 @@ const Sidebar = () => {
         </ul>
       </div>
 
-    </div>
+        </div>
+    </>
+    
   );
 };
 
