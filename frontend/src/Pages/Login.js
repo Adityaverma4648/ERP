@@ -34,9 +34,6 @@ const Login = () => {
   const handleUserName = (e) => {
     setUserName(e.target.value);
   };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
   const handlePassword = (e) => {
     SetPassword(e.target.value);
   };
@@ -62,14 +59,6 @@ const Login = () => {
           placeholder="userName"
           className="inpElem"
           onChange={handleUserName}
-          required
-        />
-
-        <input
-          type="email"
-          placeholder="email"
-          className="inpElem"
-          onChange={handleEmail}
           required
         />
         <div className="passwordInpCont">
