@@ -59,7 +59,11 @@ const Sidebar = () => {
   
 }
 ]
-  const [toggler, setToggler] = useState()
+  const [toggler, setToggler] = useState(true);
+ 
+  const Tooltip = (e)=>{
+     return 0;
+  }
 
 const sidebarDisplayToggler = ()=>{
       var Sidebar = document.getElementById('Sidebar');
@@ -71,25 +75,24 @@ const sidebarDisplayToggler = ()=>{
          Sidebar.style.display = "block";
        }
    }
-   
-
+  
   return (
     <>  
          <button  type="button" className="toggleSideBar top-0 right-0 absolute text-white m-3 p-5 bg-slate-500" onClick={sidebarDisplayToggler}>
              <FaStream />
         </button>
        <div className="Sidebar" id="Sidebar">
-       <div className="py-1 h-3/4">
+       <div className="py-1 h-3/4 w-full">
        <div className="logo flex items-center justify-center text-gray-100 ">
           <h4 className="py-5">
              LOGO
           </h4>
       </div>
-       <ul className="py-4 mt-3 h-2/4">
+       <ul className="w-full py-4 mt-3 h-2/4">
           {
             NavigationElement?.slice(0,4).map((d)=>{
                     return <Link to= {d.route} key={d.id}>
-                            <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center p-5 my-4 hover:border-2 hover:border-sky-500  hover:text-slate-700">
+                            <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center py-5 my-4 hover:border-t hover:border-b hover:border-slate-400  hover:text-slate-100" onMouseOver = {Tooltip()}>
                                {d.icon}
                             </li>
                           </Link>
@@ -97,12 +100,12 @@ const sidebarDisplayToggler = ()=>{
           }
         </ul>
        </div>
-      <div className="sideBarLinks h-1/4">
-           <ul>
+      <div className="sideBarLinks w-full h-1/4">
+           <ul className="">
            {
             NavigationElement?.slice(4,7).map((d)=>{
                     return <Link to= {d.route} key={d.id}>
-                            <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center p-5 my-4 hover:border-2 hover:border-sky-500  hover:text-slate-700" >
+                            <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center py-5 my-1  hover:border-t hover:border-b hover:border-slate-400  hover:text-slate-100" >
                                {d.icon}
                             </li>
                           </Link>

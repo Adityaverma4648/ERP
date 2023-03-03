@@ -72,6 +72,7 @@ const ToDoList = () => {
 
   return (
     <div className='ToDoList w-screen h-screen flex items-center justify-center'>
+         
          <div className="w-1/2 py-3 bg-slate-300">
               <span className='p-1 flex items-center justify-between px-2 border-b text-sm text-900 border-black '>
                       <span>
