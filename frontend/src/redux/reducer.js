@@ -1,14 +1,11 @@
 export const initialState = {
+  employees: [],
   toDoList: [],
   assignedTask: [],
-  user: null,
+  user: [],
 };
 
 //Selector
-
-
-// export const getBasketTotal = (basket) =>
-//   basket?.reduce((amount, item) => item.price * item.quantity + amount, 0);
 
 const reducer = (state, action) => {
   const checkUnique = (x) => x.id === action.item.id;
@@ -26,18 +23,35 @@ const reducer = (state, action) => {
         };
       }
 
-//     case "ADD_TO_SAVED":
-//       if (state.saved.some(checkUnique)) {
-//         return {
-//           ...state,
-//           saved: [...state.saved],
-//         };
-//       } else {
-//         return {
-//           ...state,
-//           saved: [...state.saved, action.item],
-//         };
-//       }
+    case "ADD_TO_EMPLOYEES":
+      if (state.employees.some(checkUnique)) {
+        return {
+          ...state,
+          employees: [...state.employees],
+        };
+      } else {
+        return {
+          ...state,
+          employees: [...state.employees, action.item],
+        };
+      }
+
+      case "toDoList":
+      return {
+        ...state,
+        toDoList: [],
+      };
+
+      case "EMPTY_EMPLOYEES":
+      return {
+        ...state,
+        employees: [],
+      };
+      case "SET_USER":
+      return {
+        ...state,
+        user: [...state.user , action.user]
+      };
 
 //     case "UPDATE_QUANTITY":
 //       const target = state.basket.find((x) => x.id === action.item.id);
@@ -88,11 +102,6 @@ const reducer = (state, action) => {
 //         saved: newSaved,
 //       };
 
-//     case "SET_USER":
-//       return {
-//         ...state,
-//         user: action.user,
-//       };
 
     default:
       return state;

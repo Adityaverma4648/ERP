@@ -11,16 +11,10 @@ import ToDoList from "./Pages/ToDoList";
 import { FaStream } from 'react-icons/fa';
 
 function App() {
-    //  const [sidebarDisplayStatus, setsidebarDisplayStatus] = useState(true)
-    //  const sidebarDisplayToggler=()=>{
-    //        setsidebarDisplayStatus(false);
-    //  }
+ 
   return (
     <>
       <BrowserRouter>
-        {/* <div className="toggleSideBar top-0 right-0 absolute text-white m-3 p-5 bg-slate-500" onClick={sidebarDisplayToggler()}>
-             <FaStream />
-        </div> */}
         <Sidebar />
           <Routes>
              <Route path='/' element={<Home />} exact></Route>

@@ -13,7 +13,8 @@ const ToDoList = () => {
   //  input states.....
      const [task, setTask] = useState('');
      const [taskDesc, setTaskDesc] = useState('');
-      const [completionTime, setCompletionTime] = useState('');
+     const [completionTime, setCompletionTime] = useState('');
+    const [ status, setStatus] = useState(false)
   
   const taskHandler = (e) =>{
        setTask(e.target.value)
@@ -64,7 +65,9 @@ const ToDoList = () => {
           }
          });
          e.preventDefault();
+         e.target.reset()
    }
+
   
 
   return (
@@ -79,18 +82,42 @@ const ToDoList = () => {
                        </span>
                       
               </span>
-         
-                <div className="taskContainer w-full bg-light py-3 border-b border-black">
+              <div className="w-full flex items-center justify-center bg-gray-900 text-gray-300">
+                               
+                   <table className="table-fixed border-collapse border-gray-500">
+                   <thead>
+                         <tr>
+                           <th className='bg-gray-700' >S.No</th>
+                           <th className='bg-gray-700' >Task</th>
+                           <th className='bg-gray-700' >Description</th>
+                           <th className='bg-gray-700' >CompletionTime</th>
+                           <th className='bg-gray-700' >Status</th>
+                         </tr>
+                       </thead>
+                     <tbody>
+   
                     {toDoList?.map((d)=>{
-                         return <div className='w-1/2 bg-pink-400 p-2' id={d.id}>
-                            {d.id}
-                            {d.task}
-                            {d.taskDesc}
-                            {d.completionTime}
-                         </div>
+                         return <tr id={d.id}>
+                            <td>
+                              {d.id}
+                            </td>
+                            <td>
+                              {d.task}
+                            </td>
+                            <td>
+                              {d.taskDesc}
+                            </td>
+                            <td>
+                              {d.completionTime}
+                            </td>
+                            <td>
+                                 Set Status
+                            </td>
+                         </tr>
                     })}
-                </div>
-
+                    </tbody>
+                 </table>
+              </div>
               <div className="toDoForm flex items-center justify-center flex-col my-2">
                      <form className='w-1/2 flex items-center justify-center flex-col' id="toDoForm" onSubmit={(e)=>addToDoList(e)}>
                      <div className='w-3/4 mt-1' >

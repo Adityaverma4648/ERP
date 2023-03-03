@@ -59,15 +59,25 @@ const Sidebar = () => {
   
 }
 ]
+  const [toggler, setToggler] = useState()
 
-// const [toggler,setToggler] = useState(false);
-// useEffect(()=>{
-     
-// },[])
-
+const sidebarDisplayToggler = ()=>{
+      var Sidebar = document.getElementById('Sidebar');
+       if(Sidebar.style.display === "block"){
+         setToggler(true);
+         Sidebar.style.display = "none";
+       }else{
+         setToggler(false);
+         Sidebar.style.display = "block";
+       }
+   }
+   
 
   return (
     <>  
+         <button  type="button" className="toggleSideBar top-0 right-0 absolute text-white m-3 p-5 bg-slate-500" onClick={sidebarDisplayToggler}>
+             <FaStream />
+        </button>
        <div className="Sidebar" id="Sidebar">
        <div className="py-1 h-3/4">
        <div className="logo flex items-center justify-center text-gray-100 ">

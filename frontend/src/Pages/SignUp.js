@@ -56,7 +56,7 @@ const SignUp = () => {
     <div className="SignUp">
       <form id="signUpForm">
         <center>
-          <h3 className="colorWhite">SIGNUP</h3>
+          <h3 className="colorWhite text-xl text-gray-100">SIGNUP</h3>
         </center>
         <input
           type="text"
@@ -94,7 +94,7 @@ const SignUp = () => {
         <div className="submitInpCont">
           <input
             type="submit"
-            className="submitInp"
+            className="submitInp bg-black text-gray-400 cursor-pointer hover:bg-green-800"
             value="signUp"
             onClick={handleClick}
             onSubmit={onSubmission}
