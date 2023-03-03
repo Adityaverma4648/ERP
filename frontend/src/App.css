@@ -287,7 +287,7 @@
     font-size: 300px;
   }
   .Sidebar{
-    display: none;
+    /* display: none; */
   }
   .Welcome{
     width: 90vw;

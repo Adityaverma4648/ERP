@@ -1,27 +1,111 @@
-import React from 'react'
-import todoData from "../data/todo"; 
+import React, { useEffect, useState } from 'react';
+import {useStateValue} from "../redux/StateProvider";
+
 
 
 const ToDoList = () => {
+
+
+  const [{ toDoList, user }, dispatch] = useStateValue();
+   
+  const [time,SetTime] = useState(new Date());
+
+  //  input states.....
+     const [task, setTask] = useState('');
+     const [taskDesc, setTaskDesc] = useState('');
+      const [completionTime, setCompletionTime] = useState('');
+  
+  const taskHandler = (e) =>{
+       setTask(e.target.value)
+  }
+  const taskDescriptionHandler = (e)=>{
+        setTaskDesc(e.target.value)
+  }
+    const completionTimeHandler = (e)=>{
+          setCompletionTime(e.target.value)
+    }
+  
+  useEffect(()=>{  
+  
+    // toDolistfetching initialized-------------------------------------------------------------------------------------------------------------------------------------------------
+             
+    //  block ends here----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    //  clock functionality--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //  component did mount as use effect mounts on rendering for once.......................  
+    
+         var liveReload =  setInterval(()=>
+          liveReloaderFunction() , 1000
+    //   every one second new time is fed to useEffect
+         )
+
+    // component will Unmount using by returning a function.................... 
+
+         return function cleanUp(){
+                clearInterval(liveReload);
+    //  previouds time is destroyed verytime its called
+         }
+    //   clock block ends here---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   },[])
+   
+   const liveReloaderFunction = ()=>{
+      SetTime(new Date());
+   }
+
+   const addToDoList = (e) =>{         
+        dispatch({
+          type: 'ADD_TO_TODOLIST',
+          item:{
+              id : (toDoList.length)+1,
+              task : task,
+              taskDesc :taskDesc,
+              completionTime : completionTime
+          }
+         });
+         e.preventDefault();
+   }
+  
+
   return (
     <div className='ToDoList w-screen h-screen flex items-center justify-center'>
-        {/* {
-          todoData?.map((d)=>{
-              return <div>{d.task}</div>;
-        })
-        } */}
-
-         <div className="container py-3 bg-slate-300">
-              <span className='p-1 flex justify-end px-2 border-b border-black'>
-                     Current Date container
+         <div className="w-1/2 py-3 bg-slate-300">
+              <span className='p-1 flex items-center justify-between px-2 border-b text-sm text-900 border-black '>
+                      <span>
+                     {new Date().toLocaleDateString()}  
+                     </span>
+                       <span>
+                     {time.toLocaleTimeString()}
+                       </span>
+                      
               </span>
+         
+                <div className="taskContainer w-full bg-light py-3 border-b border-black">
+                    {toDoList?.map((d)=>{
+                         return <div className='w-1/2 bg-pink-400 p-2' id={d.id}>
+                            {d.id}
+                            {d.task}
+                            {d.taskDesc}
+                            {d.completionTime}
+                         </div>
+                    })}
+                </div>
+
               <div className="toDoForm flex items-center justify-center flex-col my-2">
-                    <div className='w-3/4 mt-1' >
-                        <input type="text" placeholder='Enter the Task' className='w-full px-2 py-1 bg-transparent border border-black' />
+                     <form className='w-1/2 flex items-center justify-center flex-col' id="toDoForm" onSubmit={(e)=>addToDoList(e)}>
+                     <div className='w-3/4 mt-1' >
+                        <input type="text" placeholder='Enter the Task' className='w-full px-2 py-1 bg-transparent border border-black' onChange={(e)=>taskHandler(e)} />
                     </div>
                     <div className='w-3/4 mt-1' >
-                        <input type="text" placeholder='Enter the Task' className='w-full px-2 py-1 bg-transparent border border-black' />
+                        <input type="text" placeholder='Enter a short descriptionTask' className='w-full px-2 py-1 bg-transparent border border-black' onChange={(e)=>taskDescriptionHandler(e)}  />
                     </div>
+                    <div className='w-3/4 mt-1' >
+                        <input type="datetime-local" placeholder='Enter Completion time' className='w-full px-2 py-1 bg-transparent border border-black' onChange={(e)=>completionTimeHandler(e)} />
+                    </div>
+                    <div className='w-3/4 mt-1' >
+                        <input type="submit" className='w-full px-2 py-1 bg-transparent border border-black' />
+                    </div>
+                     </form>
               </div>
          </div>
 
