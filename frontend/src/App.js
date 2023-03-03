@@ -6,6 +6,7 @@ import Login from "./Pages/Login"
 import Sidebar from './components/Sidebar';
 import Explore from "./Pages/Explore.js";
 import Event from "./Pages/Event";
+import ToDoList from "./Pages/ToDoList";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
              <Route path='/explore' element={<Explore />} exact></Route>
              <Route path='/login' element={<Login />} exact></Route>
              <Route path='/event' element={<Event />} exact></Route>
+             <Route path='/toDoList' element={<ToDoList />} exact></Route>
           </Routes>
       </BrowserRouter>
     </> 

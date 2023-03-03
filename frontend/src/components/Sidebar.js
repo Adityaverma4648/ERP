@@ -8,7 +8,8 @@ import {
   FaCog,
   FaExclamationTriangle,
   FaSignOutAlt,
-  FaStream
+  FaStream,
+  FaList
 } from "react-icons/fa";
 
 
@@ -34,18 +35,24 @@ const Sidebar = () => {
 },
 {
   id : 4,
+  element : "ToDoList",
+  route : "/toDoList",
+  icon : <FaList />
+},
+{
+  id : 5,
   element : "Report",
   route : "/report",
   icon : <FaExclamationTriangle />
 },
 {
-  id : 5,
+  id : 6,
   element : "SignOut",
   route : "/signOut",
   icon : <FaSignOutAlt />
 },
 {
-    id : 6,
+    id : 7,
     element : "Setting",
     route : "/setting",
     icon : <FaCog />
@@ -69,7 +76,7 @@ const [toggler,setToggler] = useState(false);
       </div>
        <ul className="py-4 mt-3 h-2/4">
           {
-            NavigationElement?.slice(0,3).map((d)=>{
+            NavigationElement?.slice(0,4).map((d)=>{
                     return <Link to= {d.route}>
                             <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center p-5 my-4 hover:border-2 hover:border-sky-500  hover:text-slate-700">
                                {d.icon}
@@ -82,7 +89,7 @@ const [toggler,setToggler] = useState(false);
       <div className="sideBarLinks h-1/4">
            <ul>
            {
-            NavigationElement?.slice(3,6).map((d)=>{
+            NavigationElement?.slice(4,7).map((d)=>{
                     return <Link to= {d.route}>
                             <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center p-5 my-4 hover:border-2 hover:border-sky-500  hover:text-slate-700" >
                                {d.icon}
