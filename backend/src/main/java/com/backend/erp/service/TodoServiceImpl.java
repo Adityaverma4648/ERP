@@ -57,15 +57,39 @@ public class TodoServiceImpl implements TodoService {
         var username = jwtService.extractUsername(authToken);
         var user = userRepository.findByUsername(username).orElseThrow();
         var todo = todoRepository.findById(id).orElseThrow();
-        if (user.getId()== todo.getUser().getId()) {
+        if (user.getId() == todo.getUser().getId()) {
             todoRepository.deleteById(id);
-        }else{
+        } else {
             return SuccessResponse.builder()
-                    .message("id = "+id+"user id = "+user.getId())
+                    .message("todo does not belong to the user")
                     .build();
         }
         return SuccessResponse.builder()
                 .message("Deleted successfully")
+                .build();
+    }
+
+    public SuccessResponse update(TodoRequest request, String authToken, Integer id) {
+        authToken = authToken.substring(7);
+        var username = jwtService.extractUsername(authToken);
+        var user = userRepository.findByUsername(username).orElseThrow();
+
+        var todo = todoRepository.findById(id).orElseThrow();
+
+        if (user.getId() == todo.getUser().getId()) {
+            if (!request.getTask().isBlank()) {
+                todo.setTask(request.getTask());
+            }
+            todo.setStatus(request.getStatus());
+            todoRepository.save(todo);
+        } else {
+            return SuccessResponse.builder()
+                    .message("todo does not belong to the user")
+                    .build();
+        }
+
+        return SuccessResponse.builder()
+                .message("Updated successfully")
                 .build();
     }
 }

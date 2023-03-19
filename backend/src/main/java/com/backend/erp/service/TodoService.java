@@ -12,4 +12,7 @@ public interface TodoService {
 
     public SuccessResponse delete(Integer id, String authToken);
 
+    public SuccessResponse update(TodoRequest request, String authToken,Integer id);
+
+
 }

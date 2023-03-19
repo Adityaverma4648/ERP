@@ -29,4 +29,8 @@ public class TodoController {
         return ResponseEntity.ok(service.delete(id, authToken));
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<SuccessResponse> updateTodos(@RequestBody TodoRequest request, @RequestHeader(value = "Authorization") String authToken,@RequestParam int id) {
+        return ResponseEntity.ok(service.update(request, authToken,id));
+    }
 }
