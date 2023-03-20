@@ -6,12 +6,12 @@ const Welcome = () => {
   return (
 
 
-    <div className="Welcome container bg-slate-300 h-1/3 mt-3 columns-2 flex shadow-2xl">
-             <div className="welcomeText w-3/5 h-full flex flex-col items-center justify-center">
+    <div className="container bg-slate-300 h-1/3 mt-3 columns-2 flex shadow-2xl">
+             <div className="md:w-3/5 w-full h-full flex flex-col items-center justify-center">
                   <span className="font-medium text-xl text-center">
                       Welcome to the ERP Web Application
                   </span>
-                  <span className="w-3/5 md:w-5/6 font-medium text-sm text-gray-600">
+                  <span className="w-3/5 md:w-5/6 my-2 font-medium text-center text-sm text-gray-500">
                       Our Product will help you organize your employees..
                       To get acknowledged about the product please proceed and click explore button !
                   </span>
@@ -36,8 +36,8 @@ const Welcome = () => {
                      
                   </div>
              </div>
-             <div className="w-2/5 mx-1 illustratonCont flex items-center justify-center overflow-hidden">
-                    <img src={welcomeIllustration} alt="welcome illustration" className='w-full md:w-h/5' />
+             <div className="w-2/5 mx-1 illustratonCont md:flex md:items-center md:justify-center hidden">
+                    <img src={welcomeIllustration} alt="welcome illustration" className='w-11-12 md:w-11/12' />
              </div>
 
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import whoosh from "../assets/whoosh.mp3";
+import {Link} from "react-router-dom";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -88,6 +89,11 @@ const Login = () => {
             onSubmit={onSubmission}
           />
         </div>
+        <div className="w-9/12 text-sm text-start my-4">
+              <Link to="/SignUp" className="underline decoration-solid">
+                     Does Not Have An Account Yet?
+              </Link>
+          </div>
       </form>
       <div className="textBg">LOGIN</div>
     </div>

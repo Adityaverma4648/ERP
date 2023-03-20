@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useStateValue} from "../redux/StateProvider";
-
+import {FaStar , FaEdit ,FaTrash ,FaPlus } from "react-icons/fa";
 
 
 const ToDoList = () => {
@@ -27,12 +27,6 @@ const ToDoList = () => {
     }
   
   useEffect(()=>{  
-  
-    // toDolistfetching initialized-------------------------------------------------------------------------------------------------------------------------------------------------
-             
-    //  block ends here----------------------------------------------------------------------------------------------------------------------------------------------------
-
-
     //  clock functionality--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //  component did mount as use effect mounts on rendering for once.......................  
     
@@ -40,7 +34,6 @@ const ToDoList = () => {
           liveReloaderFunction() , 1000
     //   every one second new time is fed to useEffect
          )
-
     // component will Unmount using by returning a function.................... 
 
          return function cleanUp(){
@@ -54,6 +47,8 @@ const ToDoList = () => {
       SetTime(new Date());
    }
 
+
+  //   AddToDOList ---- adding data to todolist
    const addToDoList = (e) =>{         
         dispatch({
           type: 'ADD_TO_TODOLIST',
@@ -65,73 +60,92 @@ const ToDoList = () => {
           }
          });
          e.preventDefault();
-         e.target.reset()
+         e.target.reset();
    }
 
+
+  const toggleForm = (e)=>{
+        var toDoForm = document.getElementById('toDoForm');
+        if(toDoForm.style.display === "block"){
+            toDoList.classList.add('hidden');
+        }else{
+           toDoList.classList.remove('hidden'); 
+        }
+  }
   
 
   return (
-    <div className='ToDoList w-screen h-screen flex items-center justify-center'>
-         
-         <div className="w-1/2 py-3 bg-slate-300">
-              <span className='p-1 flex items-center justify-between px-2 border-b text-sm text-900 border-black '>
+    <div className='ToDoList w-screen h-screen flex items-center justify-center overflow-hidden'>
+         <div className="w-10/12 h-3/4 md:w-1/2 bg-gradient-to-br from-gray-900 to-"> 
+         <div className="w-full bg-red-400 py-3 flex flex-row items-center justify-between px-2">
+            <h5 className='text-xl font-semibold text-red-700' >
+              To Do List
+            </h5>
+            <span className='text-red-600 flex items-center justify-center' >
+                <FaEdit className='mx-1' />
+                 Add what's Important 
+               <FaStar className='mx-1'  />
+            </span>
+         </div>
+         {/*  time Date Block------------------------------------------------------------------------------------- */}
+          <div className='p-1 flex items-center justify-between px-2 border-b text-sm text-900 text-gray-300 my-1 border-gray-700' id='timeDateBlock' >
                       <span>
-                     {new Date().toLocaleDateString()}  
+                      Today : {new Date().toLocaleDateString()}  
                      </span>
                        <span>
-                     {time.toLocaleTimeString()}
+                     {time.toLocaleTimeString()} : Time
                        </span>
                       
-              </span>
-              <div className="w-full flex items-center justify-center bg-gray-900 text-gray-300">
-                               
-                   <table className="table-fixed border-collapse border-gray-500">
-                   <thead>
-                         <tr>
-                           <th className='bg-gray-700' >S.No</th>
-                           <th className='bg-gray-700' >Task</th>
-                           <th className='bg-gray-700' >Description</th>
-                           <th className='bg-gray-700' >CompletionTime</th>
-                           <th className='bg-gray-700' >Status</th>
-                         </tr>
-                       </thead>
-                     <tbody>
-   
+          </div>
+          {/* block ends here---------------------------------------------------------------------------------- */}
+              <div className="w-full h-2/5 flex flex-col items-center justify-center bg-gray-900 text-gray-300 overflow-y-scroll border-b border-gray-700">
+                
                     {toDoList?.map((d)=>{
-                         return <tr id={d.id}>
-                            <td>
-                              {d.id}
-                            </td>
-                            <td>
-                              {d.task}
-                            </td>
-                            <td>
-                              {d.taskDesc}
-                            </td>
-                            <td>
+                         return <div className='w-11/12 bg-white flex items-center justify-center border-b border-gray-400 px-2 text-black py-2'  id={d.id}>
+                            <span className='mx-1 md:w-2/12 w-1/12 text-lg' >
+                              {d.id} .
+                            </span>
+                            <div className='w-6/12 flex flex-col' >
+                                <span className='text-lg' >
+                                  {d.task.toUpperCase()}
+                                </span>
+                                <small>
+                                  {d.taskDesc}
+                                </small>
+                            </div>
+                            <small className='w-2/12' >
                               {d.completionTime}
-                            </td>
-                            <td>
-                                 Set Status
-                            </td>
-                         </tr>
+                            </small>
+                            <div className='w-2/12 flex justify-evenly items-center' >
+                                 <button type='button' className=''  >
+                                       <FaEdit />
+                                 </button>
+                                 <button type='button' className=''  >
+                                       <FaTrash />
+                                 </button>
+                            </div>
+                         </div>
                     })}
-                    </tbody>
-                 </table>
+                 
               </div>
-              <div className="toDoForm flex items-center justify-center flex-col my-2">
-                     <form className='w-1/2 flex items-center justify-center flex-col' id="toDoForm" onSubmit={(e)=>addToDoList(e)}>
-                     <div className='w-3/4 mt-1' >
-                        <input type="text" placeholder='Enter the Task' className='w-full px-2 py-1 bg-transparent border border-black' onChange={(e)=>taskHandler(e)} />
-                    </div>
-                    <div className='w-3/4 mt-1' >
-                        <input type="text" placeholder='Enter a short descriptionTask' className='w-full px-2 py-1 bg-transparent border border-black' onChange={(e)=>taskDescriptionHandler(e)}  />
-                    </div>
-                    <div className='w-3/4 mt-1' >
-                        <input type="datetime-local" placeholder='Enter Completion time' className='w-full px-2 py-1 bg-transparent border border-black' onChange={(e)=>completionTimeHandler(e)} />
-                    </div>
-                    <div className='w-3/4 mt-1' >
-                        <input type="submit" className='w-full px-2 py-1 bg-transparent border border-black' />
+              <div className="w-full h-2/5 flex flex-col items-center justify-center my-2">
+                     <form className='w-full h-full md:w-3/4 md:h-3/4 flex items-center justify-center flex-col' id="toDoForm" onSubmit={(e)=>addToDoList(e)} >
+                      <div className='text-red-300 text-xl' >
+                            <h5>
+                                Add Your Work Here !
+                            </h5>
+                      </div>
+                     <label for="task" className=' w-11/12 md:w-3/4 mt-1' >
+                        <input type="text" placeholder='Enter the Task' className='w-full p-2 backdrop-blur-sm bg-white/30 border-0 border-black' onChange={(e)=>taskHandler(e)} />
+                    </label>
+                    <label for="description" className=' w-11/12 md:w-3/4 mt-1' >
+                        <input type="text" placeholder='Enter a short descriptionTask' className='w-full p-2 backdrop-blur-sm bg-white/30 border-0 border-black' onChange={(e)=>taskDescriptionHandler(e)}  />
+                    </label>
+                    <label for="date" className=' w-11/12 md:w-3/4 mt-1' >
+                        <input type="datetime-local" className='w-full p-2 backdrop-blur-sm bg-white/30 border-0 border-black placeholder-slate-500' onChange={(e)=>completionTimeHandler(e)} />
+                    </label>
+                    <div className=' w-11/12 md:w-3/4 mt-1' >
+                        <input type="submit" className='w-full p-2 backdrop-blur-sm bg-white/30 border-0 border-black' />
                     </div>
                      </form>
               </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import whoosh from "../assets/whoosh.mp3";
+import {Link} from "react-router-dom";
+
 
 const SignUp = () => {
   const [userName, setUserName] = useState("");
@@ -94,17 +96,23 @@ const SignUp = () => {
         <div className="submitInpCont">
           <input
             type="submit"
-            className="submitInp bg-black text-gray-400 cursor-pointer hover:bg-green-800"
+            className="my-1 submitInp bg-gray-500 text-gray-900 cursor-pointer hover:bg-green-600 hover:text-white"
             value="signUp"
             onClick={handleClick}
             onSubmit={onSubmission}
           />
         </div>
+          <div className="w-9/12 text-sm text-start my-4">
+              <Link to="/Login" className="underline decoration-solid">
+                     Already Have An Account ?
+              </Link>
+          </div>
       </form>
       {/* <div id="animationCont"></div> */}
       <div className="textBg">
         SIGNUP
       </div>
+
     </div>
   );
 };
