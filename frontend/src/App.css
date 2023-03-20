@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 *{
   margin: 0;
   padding: 0;
@@ -16,10 +19,7 @@
     body::-webkit-scrollbar {
       display: none;
     }
-    
-.colorWhite{
-  color: #fff;
-}
+  
 /*  submitn input -----------------------------*/
 .submitInp {
   width: 50%;
@@ -42,17 +42,34 @@
 /* ---------------------------------------- */
 
 
-/*   signUp page */
+/*      Home         */
+.Home{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background: linear-gradient(45deg, #24243e ,#2e6b74 , #302b63,#be2525 , #0f0c29);
+  
+}
+/*      Home Ends   --------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+/*   signUp page --------------------------------------------------------------------------------------------------------------------------------------------*/
 
 .SignUp{
   height: 100vh;
   width: 100vw;
-  background: #0f0c29;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(45deg, #24243e ,#2e6b74 , #302b63,#be2525 , #0f0c29);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,67 +116,50 @@
 .submitInpCont{
   width: 80%;
   display: flex;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 .textBg{
     position: absolute;
     font-size: 600px ;
     background: linear-gradient(rgba(255, 255, 255, 0.6),rgba(255, 255, 255,0.3));
     backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
     color: rgba(0,0,0,0);
     background-clip: text;
     user-select: none;
-
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
-/* signUp block ends  */
+/* signUp block ends ------------------------------------------------------------------------------------------------------------------ */
 
 
-/* Removed Feature---------- */
-/* .addAnimation {
-  animation: bgFlash 1s ease-in-out;
+/*  calender---------------------------------------------------------------------------------------------------------- */
+.Event,.ToDoList{
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(45deg, #24243e ,#2e6b74 , #302b63,#be2525 , #0f0c29);
 }
 
-@keyframes bgFlash {
-  0% {
-    opacity: 0;
-    background-image: url("./assets//animation.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
 
-  }
 
-  50% {
-    opacity: 0.5;
-    background-image: url("./assets//animation.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
 
-  100% {
-    opacity: 0;
-    background-image: url("./assets//animation.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-} */
 
+
+
+
+
+
+/*  calender block ends
+ */
 
 
 /*  Login Page  */
 
 .Login{
-    height: 100vh;
+      height: 100vh;
       width: 100vw;
-      background: #0f0c29;
-      /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
-      /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
-      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(45deg, #24243e ,#2e6b74 , #302b63,#be2525 , #0f0c29);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -178,17 +178,32 @@
       align-items: center;
       box-shadow: 2px 2px 10px rgb(0, 0, 0, 0.4);
 }
-/*  blockk ends  */
+/*  block ends  */
 
 
 
+/*  sidebar */
+
+.Sidebar{
+  z-index: 99999;
+  left: 0;
+  position: absolute;
+  width: 80px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(103, 95, 173,0.5);
+  backdrop-filter: blur(0.4rem);
+  -webkit-backdrop-filter: blur(0.4rem);
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+}
 
 
-
-
-
-
-
+.toggleSideBar{
+   display: none;
+}
 
 
 
@@ -223,22 +238,33 @@
 } 
 
 @media only screen and (max-width : 600px) {
-  .textBg::-webkit-scrollbar {
-    display: none;
-  }
-        body::-webkit-scrollbar {
+    .textBg::-webkit-scrollbar {
+       display: none;
+    }
+    body::-webkit-scrollbar {
           display: none;
         }
     #signUpForm{
-      width: 90%;
+      width: 85%;
     }
-    #Login{
-      width: 90vw;
+    #loginForm{
+      width: 85%;
     }
-
+    .homeHeadingCont{
+      width: 80%;
+    }
+   
   .textBg {
     display: none;
     font-size: 300px;
+  }
+  .Sidebar{
+    display: none;
+  }
+
+  .toggleSideBar{
+    display: block;
+    cursor: pointer;
   }
 
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import whoosh from "../assets/whoosh.mp3";
+import {Link} from "react-router-dom";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -34,9 +35,6 @@ const Login = () => {
   const handleUserName = (e) => {
     setUserName(e.target.value);
   };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
   const handlePassword = (e) => {
     SetPassword(e.target.value);
   };
@@ -62,14 +60,6 @@ const Login = () => {
           placeholder="userName"
           className="inpElem"
           onChange={handleUserName}
-          required
-        />
-
-        <input
-          type="email"
-          placeholder="email"
-          className="inpElem"
-          onChange={handleEmail}
           required
         />
         <div className="passwordInpCont">
@@ -99,6 +89,11 @@ const Login = () => {
             onSubmit={onSubmission}
           />
         </div>
+        <div className="w-9/12 text-sm text-start my-4">
+              <Link to="/SignUp" className="underline decoration-solid">
+                     Does Not Have An Account Yet?
+              </Link>
+          </div>
       </form>
       <div className="textBg">LOGIN</div>
     </div>

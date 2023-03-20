@@ -1,4 +1,19 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 2000,
+            "driver": "MySQL",
+            "database": "user",
+            "username": "root",
+            "name": "localJava",
+            "password": "Clearity@1"
+        }
+    ]
 }
