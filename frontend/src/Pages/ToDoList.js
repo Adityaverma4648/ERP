@@ -63,15 +63,9 @@ const ToDoList = () => {
          e.target.reset();
    }
 
-
-  const toggleForm = (e)=>{
-        var toDoForm = document.getElementById('toDoForm');
-        if(toDoForm.style.display === "block"){
-            toDoList.classList.add('hidden');
-        }else{
-           toDoList.classList.remove('hidden'); 
-        }
-  }
+    const updateWork = (e) =>{
+         
+    }
   
 
   return (
@@ -98,7 +92,7 @@ const ToDoList = () => {
                       
           </div>
           {/* block ends here---------------------------------------------------------------------------------- */}
-              <div className="w-full h-2/5 flex flex-col items-center justify-center bg-gray-900 text-gray-300 overflow-y-scroll border-b border-gray-700">
+              <div className="w-full h-2/5 flex flex-col items-center justify-center py-5 bg-gray-900 text-gray-300 overflow-y-scroll border-b border-gray-700">
                 
                     {toDoList?.map((d)=>{
                          return <div className='w-11/12 bg-white flex items-center justify-center border-b border-gray-400 px-2 text-black py-2'  id={d.id}>
@@ -117,7 +111,7 @@ const ToDoList = () => {
                               {d.completionTime}
                             </small>
                             <div className='w-2/12 flex justify-evenly items-center' >
-                                 <button type='button' className=''  >
+                                 <button type='button' onClick={(e)=>updateWork(e)}  >
                                        <FaEdit />
                                  </button>
                                  <button type='button' className=''  >

@@ -23,6 +23,9 @@ const reducer = (state, action) => {
         };
       }
 
+      // case "UPDATE_REQUEST":
+      //      if()
+
     case "ADD_TO_EMPLOYEES":
       if (state.employees.some(checkUnique)) {
         return {
