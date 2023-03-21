@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -24,6 +25,11 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "avatarUrl")
+    @Enumerated(EnumType.STRING)
+    private AvatarUrl avatar;
+
+
     @Column(name = "name")
     private String name;
 
@@ -36,9 +42,13 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "createdAt")
+    private Date date;
+
+
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private Role role = Role.USER;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,9 +1,9 @@
 package com.backend.erp.controller;
 
 import com.backend.erp.request.AuthenticationRequest;
-import com.backend.erp.request.TodoRequest;
+import com.backend.erp.request.UpdateUser;
 import com.backend.erp.response.AuthenticationResponse;
-import com.backend.erp.response.TokenRequest;
+import com.backend.erp.response.SuccessResponse;
 import com.backend.erp.response.UserDataResponse;
 import com.backend.erp.service.AuthenticationServiceImpl;
 import com.backend.erp.request.RegisterRequest;
@@ -29,7 +29,12 @@ public class AuthenticationController {
     }
 
     @GetMapping("/fetch")
-    public ResponseEntity<UserDataResponse> register(@RequestBody TokenRequest request,@RequestHeader(value="Authorization") String authToken) {
-        return ResponseEntity.ok(service.fetch(request,authToken));
+    public ResponseEntity<UserDataResponse> register(@RequestHeader(value="Authorization") String authToken) {
+        return ResponseEntity.ok(service.fetch(authToken));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<SuccessResponse> update(@RequestBody UpdateUser request, @RequestHeader(value="Authorization") String authToken) {
+        return ResponseEntity.ok(service.update(request,authToken));
     }
 }
