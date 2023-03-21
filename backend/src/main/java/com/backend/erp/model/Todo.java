@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,10 +25,19 @@ public class Todo {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "description")
+    private String desc;
+
+    @Column(name = "targetTime")
+    private Date targetTime;
+
+    @Column(name = "isCompleted")
+    private boolean isCompleted;
+
     @Column(name = "status")
-    private boolean status;
-
-    @Column(name = "task")
-    private String task;
-
+    @Enumerated(EnumType.STRING)
+    private TodoStatus status;
 }
