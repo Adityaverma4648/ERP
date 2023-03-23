@@ -1,28 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import whoosh from "../assets/whoosh.mp3";
-import {Link} from "react-router-dom";
-
+import {Link, useNavigate} from "react-router-dom";
+import { initialState } from "../redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../redux/features/authSlice";
 
 const SignUp = () => {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, SetPassword] = useState("");
-  const [audio] = useState(new Audio(whoosh));
-  const [play, setPlay] = useState(false);
-  const [status, setStatus] = useState(false);
-  const [dataSent, setDataSent] = useState(false);
-  // const [animation, setAnimation] = useState(true);
+ const [formValue , setFormValue] = useState("");
+ const { username , email, password} = formValue;
+ const {loading,error}  = useSelector((state)=>({...state.auth}));
+ const navigate = useNavigate();
+ const dispatch = useDispatch();
 
-  useEffect(() => {
-    const playEffects = (e) => {
-      if (play) {
-        audio.play();
-        audio.volume = 0.2;
-      }
-    };
-    playEffects();
-  }, [play]);
+
+  useEffect(()=>{
+         error && console.log(error);
+  },[error])
 
   const onChecked = (e) => {
     var passwordInp = document.getElementById("passwordInp");
@@ -34,24 +27,16 @@ const SignUp = () => {
     }
   };
 
-  const handleUserName = (e) => {
-    setUserName(e.target.value);
+  const onInputChange = (e) =>{
+    let {name , value } = e.target;
+    setFormValue({...formValue, [name] : value});  // structuring suitable for mongo insertion
   };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    SetPassword(e.target.value);
-  };
-  const handleClick = (e) => {
-    setPlay(true);
-    if (play) {
-      audio.play();
-    }
-  };
+
   const onSubmission = (e) => {
-    // setting data current hooks value to react-redux-arrays
-    // setStatus(true);                onDataSent = setStatus(true)
+        const formValue =({username,email,password})
+        if(!username || !email ||  !password ){
+            dispatch(register({formValue,navigate}))
+        }
   };
 
   return (
@@ -64,7 +49,8 @@ const SignUp = () => {
           type="text"
           placeholder="userName"
           className="inpElem"
-          onChange={handleUserName}
+          name="username"
+          onChange={(e)=>onInputChange(e)}
           required
         />
 
@@ -72,16 +58,18 @@ const SignUp = () => {
           type="email"
           placeholder="email"
           className="inpElem"
-          onChange={handleEmail}
+          name="email"
+          onChange={(e)=>onInputChange(e)}
           required
         />
         <div className="passwordInpCont">
           <input
             type="password"
             placeholder="password"
+            name="password"
             className="inpElem passwordInp"
-            id="passwordInp"
-            onChange={handlePassword}
+            id="password"
+            onChange={(e)=>onInputChange(e)}
             required
           />
           <label htmlFor="showPassword" className="showPassword">
@@ -89,7 +77,7 @@ const SignUp = () => {
               type="checkbox"
               name="showPassword"
               className="showPasswordInp"
-              onChange={onChecked}
+              onChange={(e) => onChecked(e)}
             />
           </label>
         </div>
@@ -98,8 +86,7 @@ const SignUp = () => {
             type="submit"
             className="my-1 submitInp bg-gray-500 text-gray-900 cursor-pointer hover:bg-green-600 hover:text-white"
             value="signUp"
-            onClick={handleClick}
-            onSubmit={onSubmission}
+            onClick ={(e)=>onSubmission(e)}
           />
         </div>
           <div className="w-9/12 text-sm text-start my-4">
