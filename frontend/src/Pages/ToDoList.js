@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {useStateValue} from "../redux/StateProvider";
 import {FaStar , FaEdit ,FaTrash ,FaPlus } from "react-icons/fa";
 
 
 const ToDoList = () => {
 
-
-  const [{ toDoList, user }, dispatch] = useStateValue();
    
   const [time,SetTime] = useState(new Date());
 
   //  input states.....
+     const toDoList = []
      const [task, setTask] = useState('');
      const [taskDesc, setTaskDesc] = useState('');
      const [completionTime, setCompletionTime] = useState('');
@@ -50,17 +48,17 @@ const ToDoList = () => {
 
   //   AddToDOList ---- adding data to todolist
    const addToDoList = (e) =>{         
-        dispatch({
-          type: 'ADD_TO_TODOLIST',
-          item:{
-              id : (toDoList.length)+1,
-              task : task,
-              taskDesc :taskDesc,
-              completionTime : completionTime
-          }
-         });
-         e.preventDefault();
-         e.target.reset();
+        // dispatch({
+        //   type: 'ADD_TO_TODOLIST',
+        //   item:{
+        //       id : (toDoList.length)+1,
+        //       task : task,
+        //       taskDesc :taskDesc,
+        //       completionTime : completionTime
+        //   }
+        //  });
+        //  e.preventDefault();
+        //  e.target.reset();
    }
 
     // const updateWork = (e) =>{
