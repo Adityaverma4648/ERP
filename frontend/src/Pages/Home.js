@@ -26,7 +26,7 @@ const Home = () => {
                   Dashboard
               </span>
               <div>
-              <button type="button" className="top-0 right-0 md:hidden absolute text-white m-3 p-5 bg-slate-500 hover:animate-spin" onClick={sidebarDisplayToggler}>
+              <button type="button" className="top-0 right-0 md:hidden absolute text-white m-3 p-5 bg-slate-500 hover:animate-spin" onClick={()=>sidebarDisplayToggler()}>
              <FaStream />
         </button>
               </div>

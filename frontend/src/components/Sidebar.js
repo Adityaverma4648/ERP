@@ -77,7 +77,7 @@ const Sidebar = () => {
           {
             NavigationElement?.slice(0,4).map((d)=>{
                     return <Link to= {d.route} key={d.id}>
-                            <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center py-5 my-4 hover:border-t hover:border-b hover:border-slate-400  hover:text-slate-100" onMouseOver = {Tooltip()}>
+                            <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center py-5 my-4 hover:border-t hover:border-b hover:border-slate-400  hover:text-slate-100" >
                                {d.icon}
                             </li>
                           </Link>

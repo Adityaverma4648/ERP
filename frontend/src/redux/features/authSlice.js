@@ -39,37 +39,12 @@ const authSlice = createSlice({
   },
   reducers: {
     setUser: (state, action) => {
+      localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
       state.user = action.payload;
     },
     setLogout: (state, action) => {
       localStorage.clear();
       state.user = null;
-    },
-  },
-  extraReducers: {
-    [login.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [login.fulfilled]: (state, action) => {
-      state.loading = false;
-      localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
-      state.user = action.payload;
-    },
-    [login.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
-    },
-    [register.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [register.fulfilled]: (state, action) => {
-      state.loading = false;
-      localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
-      state.user = action.payload;
-    },
-    [register.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
     },
   },
 });

@@ -63,9 +63,9 @@ const ToDoList = () => {
          e.target.reset();
    }
 
-    const updateWork = (e) =>{
+    // const updateWork = (e) =>{
          
-    }
+    // }
   
 
   return (
@@ -111,7 +111,7 @@ const ToDoList = () => {
                               {d.completionTime}
                             </small>
                             <div className='w-2/12 flex justify-evenly items-center' >
-                                 <button type='button' onClick={(e)=>updateWork(e)}  >
+                                 <button type='button' >
                                        <FaEdit />
                                  </button>
                                  <button type='button' className=''  >

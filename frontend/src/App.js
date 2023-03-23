@@ -18,11 +18,11 @@ function App() {
         <Sidebar />
           <Routes>
              <Route path='/' element={<Home />} exact></Route>
-             <Route path='/signUp' element={<SignUp />} exact></Route>
-             <Route path='/explore' element={<Explore />} exact></Route>
-             <Route path='/login' element={<Login />} exact></Route>
-             <Route path='/event' element={<Event />} exact></Route>
-             <Route path='/toDoList' element={<ToDoList />} exact></Route>
+             <Route path='/signUp' element={<SignUp />} ></Route>
+             <Route path='/explore' element={<Explore />} ></Route>
+             <Route path='/login' element={<Login />}></Route>
+             <Route path='/event' element={<Event />} ></Route>
+             <Route path='/toDoList' element={<ToDoList />} ></Route>
           </Routes>
       </BrowserRouter>
     </> 

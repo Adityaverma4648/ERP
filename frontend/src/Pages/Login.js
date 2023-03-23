@@ -59,7 +59,7 @@ const Login = () => {
           type="text"
           placeholder="userName"
           className="inpElem"
-          onChange={handleUserName}
+          onChange={(e)=>handleUserName(e)}
           required
         />
         <div className="passwordInpCont">
@@ -68,7 +68,7 @@ const Login = () => {
             placeholder="password"
             className="inpElem passwordInp"
             id="passwordInp"
-            onChange={handlePassword}
+            onChange={(e)=>handlePassword(e)}
             required
           />
           <label htmlFor="showPassword" className="showPassword">
@@ -76,7 +76,7 @@ const Login = () => {
               type="checkbox"
               name="showPassword"
               className="showPasswordInp"
-              onChange={onChecked}
+              onChange={(e)=>onChecked(e)}
             />
           </label>
         </div>
@@ -85,8 +85,6 @@ const Login = () => {
             type="submit"
             className="submitInp"
             value="Login"
-            onClick={handleClick}
-            onSubmit={onSubmission}
           />
         </div>
         <div className="w-9/12 text-sm text-start my-4">

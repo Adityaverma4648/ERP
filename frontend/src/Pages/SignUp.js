@@ -1,22 +1,39 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {Link, useNavigate} from "react-router-dom";
-import { initialState } from "../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
+
+// loading register data to register at redux arrays then to redux API to backend urls
+
 import { register } from "../redux/features/authSlice";
 
+//  block ends
+
+const initialState = {
+  username: "",
+  email: "",
+  password: "",
+
+};
+
 const SignUp = () => {
- const [formValue , setFormValue] = useState("");
+
+  //  useState Hoooks
+
+ const [formValue , setFormValue] = useState(initialState);
  const { username , email, password} = formValue;
  const {loading,error}  = useSelector((state)=>({...state.auth}));
  const navigate = useNavigate();
  const dispatch = useDispatch();
 
+//  block ends
 
   useEffect(()=>{
          error && console.log(error);
   },[error])
 
+
+  //  helper , getter , feature function----------------------------------------------------------------------------------------------------------------------------
   const onChecked = (e) => {
     var passwordInp = document.getElementById("passwordInp");
     // e.preventDefault();
@@ -35,13 +52,15 @@ const SignUp = () => {
   const onSubmission = (e) => {
         const formValue =({username,email,password})
         if(!username || !email ||  !password ){
-            dispatch(register({formValue,navigate}))
+             console.log(formValue);
+            // dispatch(register({formValue,navigate}))
         }
   };
+  //   end block here--------------------------------------------------------------------------------------------------------------------------------
 
   return (
     <div className="SignUp">
-      <form id="signUpForm">
+      <form id="signUpForm" onSubmit={(e)=>onSubmission(e)} >
         <center>
           <h3 className="colorWhite text-xl text-gray-100">SIGNUP</h3>
         </center>
@@ -77,7 +96,7 @@ const SignUp = () => {
               type="checkbox"
               name="showPassword"
               className="showPasswordInp"
-              onChange={(e) => onChecked(e)}
+              onChange={(e)=>onChecked(e)}
             />
           </label>
         </div>
@@ -86,7 +105,6 @@ const SignUp = () => {
             type="submit"
             className="my-1 submitInp bg-gray-500 text-gray-900 cursor-pointer hover:bg-green-600 hover:text-white"
             value="signUp"
-            onClick ={(e)=>onSubmission(e)}
           />
         </div>
           <div className="w-9/12 text-sm text-start my-4">
