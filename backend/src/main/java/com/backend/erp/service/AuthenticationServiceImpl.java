@@ -11,6 +11,7 @@ import com.backend.erp.model.Role;
 import com.backend.erp.model.User;
 import com.backend.erp.response.SuccessResponse;
 import com.backend.erp.response.UserDataResponse;
+import com.backend.erp.utility.UtilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ExpressionException;
@@ -32,10 +33,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    private final UtilityService utilityService;
+
+
+    public AuthenticationResponse signup(RegisterRequest request) {
         var userExist = userRepository.findByEmail(request.getEmail());
         if (userExist.isPresent()) {
             return AuthenticationResponse.builder().message("User with this email already exist").build();
+        }
+        userExist = userRepository.findByUsername(request.getUsername());
+        if (userExist.isPresent()) {
+            return AuthenticationResponse.builder().message("User with this username already exist").build();
         }
         var user = User.builder().username(request.getUsername()).name(request.getName()).email(request.getEmail()).password(passwordEncoder.encode(request.getPassword())).role(Role.USER).date(new Date()).avatar(AvatarUrl.USER_1).build();
         userRepository.save(user);
@@ -43,7 +51,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return AuthenticationResponse.builder().token(jwtToken).message("success").build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse login(AuthenticationRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ExpressionException("No user found"));
         var jwtToken = jwtService.generateToken(user);
@@ -51,8 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public UserDataResponse fetch(String authToken) {
-        authToken = authToken.substring(7);
-        var username = jwtService.extractUsername(authToken);
+        var username= utilityService.extract(authToken);
         var user = userRepository.findByUsername(username).orElseThrow(() -> new ExpressionException("No user found"));
 
         return UserDataResponse.builder().id(user.getId()).username(user.getUsername()).name(user.getName()).email(user.getEmail()).build();

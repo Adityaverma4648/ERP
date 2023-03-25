@@ -8,6 +8,7 @@ import com.backend.erp.repository.UserRepository;
 import com.backend.erp.request.TodoRequest;
 import com.backend.erp.response.SuccessResponse;
 import com.backend.erp.response.TodoResponse;
+import com.backend.erp.utility.UtilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,10 @@ public class TodoServiceImpl implements TodoService {
 
     private final JwtService jwtService;
 
+    private final UtilityService utilityService;
 
     public TodoResponse fetch(String authToken) {
-        authToken = authToken.substring(7);
-        var username = jwtService.extractUsername(authToken);
+        var username= utilityService.extract(authToken);
         var user = userRepository.findByUsername(username).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
         var todos = todoRepository.findByUserId(user.getId()).orElseThrow(() -> new ExpressionException("No todos belong to " + user.getName()));
 
@@ -35,19 +36,17 @@ public class TodoServiceImpl implements TodoService {
     }
 
     public SuccessResponse add(TodoRequest request, String authToken) {
-        authToken = authToken.substring(7);
-        var username = jwtService.extractUsername(authToken);
+        var username= utilityService.extract(authToken);
         var user = userRepository.findByUsername(username).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
 
-        var todo = Todo.builder().user(user).title(request.getTitle()).desc(request.getDesc()).targetTime(request.getTargetTime()).status(TodoStatus.PENDING).isCompleted(request.getIsCompleted()).build();
+        var todo = Todo.builder().user(user).title(request.getTitle()).description(request.getDesc()).targetTime(request.getTargetTime()).status(TodoStatus.PENDING).isCompleted(request.getIsCompleted()).build();
         todoRepository.save(todo);
         return SuccessResponse.builder().statusCode(200).statusMessage("Added successfully").build();
 
     }
 
     public SuccessResponse delete(Integer id, String authToken) {
-        authToken = authToken.substring(7);
-        var username = jwtService.extractUsername(authToken);
+        var username= utilityService.extract(authToken);
         var user = userRepository.findByUsername(username).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
         var todo = todoRepository.findById(id).orElseThrow(() -> new ExpressionException("No todos belong to " + user.getName()));
         if (user.getId() == todo.getUser().getId()) {
@@ -59,8 +58,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     public SuccessResponse update(TodoRequest request, String authToken, Integer id) {
-        authToken = authToken.substring(7);
-        var username = jwtService.extractUsername(authToken);
+        var username= utilityService.extract(authToken);
         var user = userRepository.findByUsername(username).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
         var todo = todoRepository.findById(id).orElseThrow(() -> new ExpressionException("No todos belong to " + user.getName()));
 
@@ -69,7 +67,7 @@ public class TodoServiceImpl implements TodoService {
                 todo.setTitle(request.getTitle());
             }
             if (request.getDesc()!=null) {
-                todo.setDesc(request.getDesc());
+                todo.setDescription(request.getDesc());
             }
             if (request.getTargetTime()!=null && request.getTargetTime()!=todo.getTargetTime()) {
                 todo.setTargetTime(request.getTargetTime());

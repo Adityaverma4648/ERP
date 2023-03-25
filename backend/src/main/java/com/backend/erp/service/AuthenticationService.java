@@ -8,9 +8,9 @@ import com.backend.erp.response.SuccessResponse;
 import com.backend.erp.response.UserDataResponse;
 
 public interface AuthenticationService {
-    public AuthenticationResponse register(RegisterRequest request);
+    public AuthenticationResponse signup(RegisterRequest request);
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request);
+    public AuthenticationResponse login(AuthenticationRequest request);
 
     public UserDataResponse fetch(String authToken);
 
