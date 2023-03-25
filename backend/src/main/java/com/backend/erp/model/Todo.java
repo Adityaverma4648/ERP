@@ -29,7 +29,7 @@ public class Todo {
     private String title;
 
     @Column(name = "description")
-    private String desc;
+    private String description;
 
     @Column(name = "targetTime")
     private Date targetTime;
