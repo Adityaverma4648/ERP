@@ -7,6 +7,11 @@ import com.backend.erp.response.SuccessResponse;
 public interface ProjectService {
     public SuccessResponse create(ProjectRequest request, String authToken);
 
-    public SuccessResponse addTask(TaskRequest request, String authToken);
+    public SuccessResponse assign(TaskRequest request, String authToken, Integer id);
+
+    public SuccessResponse remove(String authToken, Integer id);
+
+    public SuccessResponse update(TaskRequest request, String authToken, Integer id);
+
 
 }

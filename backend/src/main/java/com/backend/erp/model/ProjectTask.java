@@ -24,6 +24,10 @@ public class ProjectTask {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
+    private Project project;
+
     @Column(name = "title")
     private String title;
 

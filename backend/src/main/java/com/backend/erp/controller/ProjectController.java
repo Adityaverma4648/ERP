@@ -20,8 +20,20 @@ public class ProjectController {
         return ResponseEntity.ok(service.create(request, authToken));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<SuccessResponse> add(@RequestBody TaskRequest request, @RequestHeader(value = "Authorization") String authToken) {
-        return ResponseEntity.ok(service.addTask(request, authToken));
+    @PostMapping("/assign")
+    public ResponseEntity<SuccessResponse> assign(@RequestBody TaskRequest request, @RequestHeader(value = "Authorization") String authToken, @RequestParam Integer id) {
+        return ResponseEntity.ok(service.assign(request, authToken, id));
     }
+
+    @GetMapping("/remove/{id}")
+    public ResponseEntity<SuccessResponse> remove(@RequestHeader(value = "Authorization") String authToken, @PathVariable Integer id) {
+        return ResponseEntity.ok(service.remove(authToken, id));
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<SuccessResponse> update(@RequestBody TaskRequest request, @RequestHeader(value = "Authorization") String authToken, @PathVariable Integer id) {
+        return ResponseEntity.ok(service.update(request, authToken, id));
+    }
+
+
 }

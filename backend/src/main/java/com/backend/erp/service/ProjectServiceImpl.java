@@ -3,6 +3,7 @@ package com.backend.erp.service;
 import com.backend.erp.config.JwtService;
 import com.backend.erp.model.Project;
 import com.backend.erp.model.ProjectTask;
+import com.backend.erp.model.Role;
 import com.backend.erp.model.TaskStatus;
 import com.backend.erp.repository.ProjectRepository;
 import com.backend.erp.repository.TaskRepository;
@@ -40,12 +41,54 @@ public class ProjectServiceImpl implements ProjectService {
         return SuccessResponse.builder().statusCode(200).statusMessage("Project created successfully").build();
     }
 
-    public SuccessResponse addTask(TaskRequest request, String authToken) {
-        var admin = utilityService.extract(authToken);
-        var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ExpressionException("No user Found"));
+    public SuccessResponse assign(TaskRequest request, String authToken, Integer id) {
+        var adminId = utilityService.extract(authToken);
+        var admin = userRepository.findByUsername(adminId).orElseThrow(() -> new ExpressionException("No user Found"));
+        if (admin.getRole() != Role.ADMIN) {
+            return SuccessResponse.builder().statusCode(404).statusMessage("Doesn't have admin permission").build();
+        }
 
-        var task = ProjectTask.builder().user(user).title(request.getTitle()).description(request.getDescription()).assignedOn(new Date()).targetTime(request.getTargetTime()).isCompleted(false).status(TaskStatus.WORKING).build();
+        var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ExpressionException("No user Found"));
+        var project = projectRepository.findById(id).orElseThrow(() -> new ExpressionException("Project doesn't exist"));
+
+        var task = ProjectTask.builder().user(user).project(project).title(request.getTitle()).description(request.getDescription()).assignedOn(new Date()).targetTime(request.getTargetTime()).isCompleted(false).status(TaskStatus.WORKING).build();
         taskRepository.save(task);
         return SuccessResponse.builder().statusCode(200).statusMessage("Task assigned successfully").build();
+    }
+
+    public SuccessResponse remove(String authToken, Integer id) {
+        var adminId = utilityService.extract(authToken);
+        var admin = userRepository.findByUsername(adminId).orElseThrow(() -> new ExpressionException("No user Found"));
+        if (admin.getRole() != Role.ADMIN) {
+            return SuccessResponse.builder().statusCode(404).statusMessage("Doesn't have admin permission").build();
+        }
+
+        taskRepository.deleteById(id);
+        return SuccessResponse.builder().statusCode(200).statusMessage("Task successfully removed").build();
+    }
+
+    public SuccessResponse update(TaskRequest request, String authToken, Integer id) {
+        var adminId = utilityService.extract(authToken);
+        var admin = userRepository.findByUsername(adminId).orElseThrow(() -> new ExpressionException("No user Found"));
+        if (admin.getRole() != Role.ADMIN) {
+            return SuccessResponse.builder().statusCode(404).statusMessage("Doesn't have admin permission").build();
+        }
+
+        var task = taskRepository.findById(id).orElseThrow(() -> new ExpressionException("No such task exist"));
+        if (request.getUsername() != null) {
+            var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ExpressionException("No user Found"));
+            task.setUser(user);
+        }
+        if (request.getTitle() != null) {
+            task.setTitle(request.getTitle());
+        }
+        if (request.getDescription() != null) {
+            task.setDescription(request.getDescription());
+        }
+        if (request.getTargetTime() != null && request.getTargetTime() != task.getTargetTime()) {
+            task.setTargetTime(request.getTargetTime());
+        }
+        taskRepository.save(task);
+        return SuccessResponse.builder().statusCode(200).statusMessage("Task successfully updated").build();
     }
 }
