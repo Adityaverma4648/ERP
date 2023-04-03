@@ -1,6 +1,5 @@
 package com.backend.erp.service;
 
-import com.backend.erp.config.JwtService;
 import com.backend.erp.model.Project;
 import com.backend.erp.model.ProjectTask;
 import com.backend.erp.model.Role;
@@ -11,6 +10,7 @@ import com.backend.erp.repository.UserRepository;
 import com.backend.erp.request.ProjectRequest;
 import com.backend.erp.request.TaskRequest;
 import com.backend.erp.response.SuccessResponse;
+import com.backend.erp.response.TaskResponse;
 import com.backend.erp.utility.UtilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.expression.ExpressionException;
@@ -27,8 +27,6 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
 
     private final TaskRepository taskRepository;
-
-    private final JwtService jwtService;
 
     private final UtilityService utilityService;
 
@@ -90,5 +88,16 @@ public class ProjectServiceImpl implements ProjectService {
         }
         taskRepository.save(task);
         return SuccessResponse.builder().statusCode(200).statusMessage("Task successfully updated").build();
+    }
+
+    public TaskResponse fetch(String authToken) {
+        var userId = utilityService.extract(authToken);
+        var user = userRepository.findByUsername(userId).orElseThrow(() -> new ExpressionException("No user Found"));
+        if (user.getRole()==Role.ADMIN){
+            var project = taskRepository.findAll();
+            return TaskResponse.builder().task(project).build();
+        }
+        var project = taskRepository.findByUserId(user.getId()).orElseThrow(() -> new ExpressionException("No task Found"));;
+        return TaskResponse.builder().task(project).build();
     }
 }

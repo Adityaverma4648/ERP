@@ -3,6 +3,7 @@ package com.backend.erp.controller;
 import com.backend.erp.request.ProjectRequest;
 import com.backend.erp.request.TaskRequest;
 import com.backend.erp.response.SuccessResponse;
+import com.backend.erp.response.TaskResponse;
 import com.backend.erp.service.ProjectServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +36,9 @@ public class ProjectController {
         return ResponseEntity.ok(service.update(request, authToken, id));
     }
 
+    @GetMapping("/fetch")
+    public ResponseEntity<TaskResponse> fetch(@RequestHeader(value = "Authorization") String authToken) {
+        return ResponseEntity.ok(service.fetch(authToken));
+    }
 
 }

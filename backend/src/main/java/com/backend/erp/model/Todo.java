@@ -1,5 +1,6 @@
 package com.backend.erp.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
