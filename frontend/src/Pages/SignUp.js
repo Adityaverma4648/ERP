@@ -2,7 +2,7 @@ import React from "react";
 import {FaEye , FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import {Link, useNavigate} from "react-router-dom";
-import Dashboard from "../components/Dashboard.js";
+import Dashboard from "../components/toggleButton.js";
 
 const initialState = {
   username: "",
@@ -50,7 +50,7 @@ const SignUp = () => {
 
               const result = await response.json();
               console.log(result);
-              if(result === "success"){
+              if(result.message === "success"){
                 localStorage.setItem("signUp_Token" , result.token);
                 alert(result.message);
                 navigate("/login");

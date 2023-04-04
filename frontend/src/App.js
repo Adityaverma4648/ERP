@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React,{useState , useEffect} from 'react';
 import {BrowserRouter,Routes,Route} from "react-router-dom"; 
 import SignUp from "./Pages/SignUp";
 import Home from "./Pages/Home"
@@ -8,19 +8,56 @@ import Sidebar from './components/Sidebar';
 import Explore from "./Pages/Explore.js";
 import Event from "./Pages/Event";
 import ToDoList from "./Pages/ToDoList";
+import Report from "./Pages/Report";
+import Setting from "./Pages/Setting";
+
 function App() {
- 
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState("user")
+  const [userEmail, setUserEmail] = useState("");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {   
+    const user = localStorage.getItem("userEmail");
+    const token = localStorage.getItem("login_token");
+    if(user){
+      const modifiedUser  = user[0].toUpperCase();
+      setUserEmail(modifiedUser);
+    }
+    if(token){
+      setToken(token);
+    }
+  }, [userEmail,token])
+  
+  const statusChecker = () =>{
+    if(localStorage.getItem("login_token")){
+         setIsLoggedIn(true);
+    }
+  }
+  useEffect(() => {
+     statusChecker();
+  }, [])
+  
+
   return (
     <>
       <BrowserRouter>
-        <Sidebar />
+        <Sidebar userEmail={userEmail} isLoggedIn={isLoggedIn} role={role} />
           <Routes>
-             <Route path='/' element={<Home />} ></Route>
-             <Route exact path='/signUp' element={<SignUp />} ></Route>
-             <Route path='/explore' element={<Explore />} ></Route>
+             <Route path='/' element={<Home isLoggedIn={isLoggedIn} />} ></Route>
+             {/*  auth Routes */}
+             <Route exact path='/signUp' element={<SignUp isLoggedIn={isLoggedIn} token={token} />} ></Route>
              <Route exact path='/login' element={<Login />}></Route>
-             <Route path='/event' element={<Event />} ></Route>
-             <Route path='/toDoList' element={<ToDoList />} ></Route>
+             {/*  auth Routes Ends here */}
+
+             {/*  Pages Routes */}
+             <Route path='/explore' element={<Explore isLoggedIn={isLoggedIn}  />} token={token} ></Route>
+             <Route path='/event' element={<Event isLoggedIn={isLoggedIn}  />}  token={token}></Route>
+             <Route path='/toDoList' element={<ToDoList isLoggedIn={isLoggedIn}  />} token={token} ></Route>
+             <Route path='/report' element={<Report isLoggedIn={isLoggedIn} />}  token={token} ></Route>
+             <Route path='/setting' element={<Setting isLoggedIn={isLoggedIn} />}  token={token} ></Route>
+             {/*  Pages Routes Ends here */}
           </Routes>
       </BrowserRouter>
     </> 

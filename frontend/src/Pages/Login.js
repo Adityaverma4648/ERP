@@ -2,7 +2,7 @@ import React, { useState , useEffect } from "react";
 import {FaEye , FaEyeSlash} from "react-icons/fa";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import Dashboard from "../components/Dashboard";
+import Dashboard from "../components/toggleButton";
 
 const initialState = {
     email : "",
@@ -14,6 +14,9 @@ const Login = () => {
   const [formValue , setFormValue] = useState(initialState);
   const { email , password} = formValue;
   const [visibility, setVisibility] = useState(false);
+  const [isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [token, setToken] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const navigate = useNavigate();
 
 
@@ -33,8 +36,9 @@ const Login = () => {
       setFormValue({...formValue, [name] : value}); 
   }
 
+  //  setting userData and sending it to App.js
+
   const handleSubmission = async (e) => {
-        alert(JSON.stringify(formValue));
         try {
           const response = await fetch("http://localhost:8080/auth/authenticate",{
           method : "POST",
@@ -45,12 +49,17 @@ const Login = () => {
         })
            const result = await response.json();
            console.log(result);
-           if(result === "success"){
+           alert(result)
+           if(result.message === "success"){
                alert(result.message);
+               setIsLoggedIn(true);
+               setToken(result.token);
+               setUserEmail(email)
                localStorage.setItem("userEmail", email);
                localStorage.setItem("login_token", result.token );
           }else{
                alert(result.message);
+               setIsLoggedIn(false);
           }
         } catch (error) {
           console.log(error);

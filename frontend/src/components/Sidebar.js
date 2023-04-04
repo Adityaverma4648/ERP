@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaHome,
@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 
 
-const Sidebar = () => {
+const Sidebar = (props) => {
 
   const NavigationElement = [{
      id : 1,
@@ -44,12 +44,6 @@ const Sidebar = () => {
   icon : <FaExclamationTriangle />
 },
 {
-  id : 6,
-  element : "SignOut",
-  route : "/signOut",
-  icon : <FaSignOutAlt />
-},
-{
     id : 7,
     element : "Setting",
     route : "/setting",
@@ -57,21 +51,32 @@ const Sidebar = () => {
   
 }
 ]
- 
-  // const Tooltip = (e)=>{
-  //    return 0;
-  // }
 
+   const [userEmail, setUserEmail] = useState("");
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const logOutHandler = (e) =>{
+      setIsLoggedIn(false);
+      localStorage.clear();
+      alert("Logout SuccessFull");
+    }
+     
+    useEffect(()=>{
+        setIsLoggedIn(props.isLoggedIn);
+        setUserEmail(props.userEmail);
+    },[props.isLoggedIn, props.userEmail])
 
   return (
     <>  
-         
        <div className="Sidebar" id="Sidebar">
        <div className="py-1 h-3/4 w-full">
-       <div className="logo flex items-center justify-center text-gray-100 ">
+       <div className="logo flex flex-col items-center justify-center text-gray-100 ">
           <h4 className="py-5">
-             LOGO
+             ERP
           </h4>
+          <div className="w-20 h-20 flex justify-center items-center  bg-slate-300 text-xl text-black" id="userProfile">
+               {userEmail[0]}
+          </div>
       </div>
        <ul className="w-full py-4 mt-3 h-2/4">
           {
@@ -96,6 +101,9 @@ const Sidebar = () => {
                           </Link>
           })
           }
+          <li className="w-full text-center text-lg text-gray-200 flex items-center justify-center py-5 my-1  hover:border-t hover:border-b hover:border-slate-400 cursor-pointer hover:text-slate-100" onClick={(e)=>logOutHandler(e)} >
+               <FaSignOutAlt />                     
+          </li>
         </ul>
       </div>
     </div>

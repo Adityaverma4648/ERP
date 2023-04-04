@@ -1,20 +1,16 @@
 import React,{useEffect, useState} from 'react';
 import Welcome from "../components/Welcome";
-import AssignedTask from "../components/AssignedTask";
 import Project from '../components/Project';
 import {FaStream} from "react-icons/fa";
+import LockedFeature from "../components/LockedFeature";
 
-const Home = () => {
+const Home = (props) => {
 
   const [toggler, setToggler] = useState(true);
-  const [isLoggedIn, setIsLoggedIn ] = useState(false);
-  const [userEmail, setUserEmail] = useState("")
-
-  const statusChecker = () =>{
-    localStorage.getItem("login_token")?setIsLoggedIn(true):setIsLoggedIn(false);
-  }
-
-  
+  const [isLoggedIn, setIsLoggedIn ] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [role, setRole] = useState("user");
+  const [token, setToken] = useState("")
 
   const sidebarDisplayToggler = ()=>{
     var Sidebar = document.getElementById('Sidebar');
@@ -26,12 +22,15 @@ const Home = () => {
        Sidebar.style.display = "block";
      }
  }
-  
  useEffect(()=>{
-     statusChecker();
-     const userEmail = localStorage.getItem("userEmail")
+    setIsLoggedIn(props.isLoggedIn);
+    setToken(props.token);
+ },[props.isLoggedIn, props.token])
+ 
+ useEffect(()=>{
+  const userEmail = localStorage.getItem("userEmail")
      setUserEmail( userEmail );
- },[])
+ },[userEmail])
 
   return (
     <div className='Home flex flex-col'>
@@ -46,8 +45,7 @@ const Home = () => {
         </div>
          </div>
           <Welcome />
-          <Project />
-          <AssignedTask />
+          {isLoggedIn ? <Project role={role} /> : <LockedFeature />}
           
     </div>
   )
