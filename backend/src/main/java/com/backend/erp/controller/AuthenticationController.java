@@ -24,12 +24,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.signup(request));
     }
 
-    @GetMapping("/authenticate")
+    @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(service.login(request));
     }
 
-    @GetMapping("/fetch")
+    @PostMapping("/fetch")
     public ResponseEntity<UserDataResponse> register(@RequestHeader(value="Authorization") String authToken) {
         return ResponseEntity.ok(service.fetch(authToken));
     }

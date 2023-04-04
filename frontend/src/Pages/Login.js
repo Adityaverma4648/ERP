@@ -1,65 +1,77 @@
-import React, { useState, useEffect } from "react";
-import whoosh from "../assets/whoosh.mp3";
-import {Link} from "react-router-dom";
+import React, { useState , useEffect } from "react";
+import {FaEye , FaEyeSlash} from "react-icons/fa";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import Dashboard from "../components/Dashboard";
+
+const initialState = {
+    email : "",
+   password : "",
+};
+
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, SetPassword] = useState("");
-  const [audio] = useState(new Audio(whoosh));
-  const [play, setPlay] = useState(false);
-  const [status, setStatus] = useState(false);
-  const [dataSent, setDataSent] = useState(false);
-  // const [animation, setAnimation] = useState(true);
+  const [formValue , setFormValue] = useState(initialState);
+  const { email , password} = formValue;
+  const [visibility, setVisibility] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const playEffects = (e) => {
-      if (play) {
-        audio.play();
-        audio.volume = 0.2;
-      }
-    };
-    playEffects();
-  }, [play]);
 
-  const onChecked = (e) => {
-    var passwordInp = document.getElementById("passwordInp");
-    // e.preventDefault();
-    if (e.target.checked) {
-      passwordInp.setAttribute("type", "text");
-    } else {
-      passwordInp.setAttribute("type", "password");
+  const setCheckedFun = (e) => {
+    var password = document.getElementById("password");
+    if(visibility){
+      setVisibility(false);
+      password.setAttribute('type' , "text");
+    }else{
+     setVisibility(true);
+     password.setAttribute('type' , "password");
     }
   };
 
-  const handleUserName = (e) => {
-    setUserName(e.target.value);
-  };
-  const handlePassword = (e) => {
-    SetPassword(e.target.value);
-  };
-  const handleClick = (e) => {
-    setPlay(true);
-    if (play) {
-      audio.play();
-    }
-  };
-  const onSubmission = (e) => {
-    // setting data current hooks value to react-redux-arrays
-    // setStatus(true);                onDataSent = setStatus(true)
+  const onInputChange = (e)=>{
+      let {name , value } = e.target;
+      setFormValue({...formValue, [name] : value}); 
+  }
+
+  const handleSubmission = async (e) => {
+        alert(JSON.stringify(formValue));
+        try {
+          const response = await fetch("http://localhost:8080/auth/authenticate",{
+          method : "POST",
+          body : JSON.stringify(formValue), 
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+          }
+        })
+           const result = await response.json();
+           console.log(result);
+           if(result === "success"){
+               alert(result.message);
+               localStorage.setItem("userEmail", email);
+               localStorage.setItem("login_token", result.token );
+          }else{
+               alert(result.message);
+          }
+        } catch (error) {
+          console.log(error);
+          alert(error);
+        }
   };
 
   return (
     <div className="Login">
-      <form id="loginForm">
-        <center>
-          <h3 className="colorWhite">Login</h3>
+       <Dashboard />
+      <form id="loginForm" onSubmit={(e)=>handleSubmission(e)}  >
+        <center className="my-2" >
+          <h3 className="text-xl text-semibold text-white">Login</h3>
         </center>
         <input
           type="text"
-          placeholder="userName"
+          placeholder="email"
           className="inpElem"
-          onChange={(e)=>handleUserName(e)}
+          name="email"
+          value={email}
+          onChange={(e)=>onInputChange(e)}
           required
         />
         <div className="passwordInpCont">
@@ -67,28 +79,26 @@ const Login = () => {
             type="password"
             placeholder="password"
             className="inpElem passwordInp"
-            id="passwordInp"
-            onChange={(e)=>handlePassword(e)}
+            name="password"
+            value={password}
+            id="password"
+            autoComplete="on"
+            onChange={(e)=>onInputChange(e)}
             required
           />
-          <label htmlFor="showPassword" className="showPassword">
-            <input
-              type="checkbox"
-              name="showPassword"
-              className="showPasswordInp"
-              onChange={(e)=>onChecked(e)}
-            />
-          </label>
+          <button type="button" className="mx-1" onClick={(e)=>setCheckedFun(e)} >
+              {visibility? <FaEye className="text-2xl mx-1" /> : <FaEyeSlash className="text-2xl mx-1" /> }
+          </button>
         </div>
         <div className="submitInpCont">
           <input
             type="submit"
-            className="submitInp"
+            className="submitInp bg-gradient-to-r from-indigo-500 to-yellow-300 cursor-pointer"
             value="Login"
           />
         </div>
         <div className="w-9/12 text-sm text-start my-4">
-              <Link to="/SignUp" className="underline decoration-solid">
+              <Link to="/SignUp" className="underline decoration-solid hover:text-white transition-all ease-in-out duration-500">
                      Does Not Have An Account Yet?
               </Link>
           </div>

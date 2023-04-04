@@ -58,9 +58,9 @@ const Sidebar = () => {
 }
 ]
  
-  const Tooltip = (e)=>{
-     return 0;
-  }
+  // const Tooltip = (e)=>{
+  //    return 0;
+  // }
 
 
   return (
@@ -98,8 +98,7 @@ const Sidebar = () => {
           }
         </ul>
       </div>
-
-        </div>
+    </div>
     </>
     
   );

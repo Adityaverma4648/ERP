@@ -71,6 +71,7 @@
   width: 100vw;
   background: linear-gradient(45deg, #24243e ,#2e6b74 , #302b63,#be2525 , #0f0c29);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -161,6 +162,7 @@
       width: 100vw;
       background: linear-gradient(45deg, #24243e ,#2e6b74 , #302b63,#be2525 , #0f0c29);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
 }
