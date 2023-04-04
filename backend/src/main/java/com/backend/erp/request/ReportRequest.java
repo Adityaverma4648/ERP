@@ -1,4 +1,4 @@
-package com.backend.erp.response;
+package com.backend.erp.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDataResponse {
-    private Integer id;
-    private String name;
-    private String email;
+public class ReportRequest {
     private String username;
+    private Integer taskId;
+    private String report;
+    private String url;
 }

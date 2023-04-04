@@ -1,6 +1,5 @@
 package com.backend.erp.request;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,10 +12,10 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoRequest {
+public class TaskRequest {
+    private String Username;
     private String title;
-    private String desc;
-    private Boolean isCompleted;
+    private String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Kolkata")
     private Date targetTime;
 }

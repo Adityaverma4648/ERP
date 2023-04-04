@@ -1,6 +1,5 @@
 package com.backend.erp.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,9 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "todo")
-public class Todo {
-
+@Table(name = "report")
+public class TaskReport {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -26,19 +24,17 @@ public class Todo {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @Column(name = "title")
-    private String title;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "task_id", referencedColumnName = "id")
+    private ProjectTask task;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "targetTime")
-    private Date targetTime;
-
-    @Column(name = "isCompleted")
-    private boolean isCompleted;
+    @Column(name = "report")
+    private String report;
 
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private TodoStatus status;
+    private String url;
+
+    @Column(name = "completedTime")
+    private Date completedTime;
+
 }

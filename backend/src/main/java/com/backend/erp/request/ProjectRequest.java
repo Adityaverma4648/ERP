@@ -1,4 +1,5 @@
-package com.backend.erp.response;
+package com.backend.erp.request;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SuccessResponse {
-    private int statusCode;
-    private String statusMessage;
+public class ProjectRequest {
+    private String projectName;
+    private String description;
 }
