@@ -10,6 +10,7 @@ import Event from "./Pages/Event";
 import ToDoList from "./Pages/ToDoList";
 import Report from "./Pages/Report";
 import Setting from "./Pages/Setting";
+import ModalContainer from './Pages/ModalContainer';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
          setIsLoggedIn(true);
     }
   }
+
   useEffect(() => {
      statusChecker();
   }, [])

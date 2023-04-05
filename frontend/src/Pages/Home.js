@@ -4,7 +4,7 @@ import Project from '../components/Project';
 import {FaStream} from "react-icons/fa";
 import LockedFeature from "../components/LockedFeature";
 
-const Home = (props) => {
+const Home = (props,{handleVisibility}) => {
 
   const [toggler, setToggler] = useState(true);
   const [isLoggedIn, setIsLoggedIn ] = useState("");
@@ -45,7 +45,7 @@ const Home = (props) => {
         </div>
          </div>
           <Welcome />
-          {isLoggedIn ? <Project role={role} /> : <LockedFeature />}
+          {isLoggedIn ? <Project handleVisibility={handleVisibility} role={role} /> : <LockedFeature />}
           
     </div>
   )
