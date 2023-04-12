@@ -7,5 +7,4 @@ import com.backend.erp.response.SuccessResponse;
 public interface ReportService {
     public SuccessResponse submit(ReportRequest request, String authToken);
 
-
 }

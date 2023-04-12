@@ -11,7 +11,6 @@ public interface ProjectService {
 
     public ProjectResponse fetchProject(String authToken);
 
-
     public SuccessResponse assign(TaskRequest request, String authToken, Integer id);
 
     public SuccessResponse remove(String authToken, Integer id);

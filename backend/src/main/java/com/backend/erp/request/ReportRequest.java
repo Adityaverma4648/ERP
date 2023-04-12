@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReportRequest {
-    private String username;
     private Integer taskId;
     private String report;
     private String url;
