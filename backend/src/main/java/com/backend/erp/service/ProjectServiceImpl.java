@@ -9,6 +9,7 @@ import com.backend.erp.repository.TaskRepository;
 import com.backend.erp.repository.UserRepository;
 import com.backend.erp.request.ProjectRequest;
 import com.backend.erp.request.TaskRequest;
+import com.backend.erp.response.ProjectResponse;
 import com.backend.erp.response.SuccessResponse;
 import com.backend.erp.response.TaskResponse;
 import com.backend.erp.utility.UtilityService;
@@ -39,6 +40,15 @@ public class ProjectServiceImpl implements ProjectService {
         return SuccessResponse.builder().statusCode(200).statusMessage("Project created successfully").build();
     }
 
+    public ProjectResponse fetchProject(String authToken) {
+        var username = utilityService.extract(authToken);
+        var user = userRepository.findByUsername(username).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
+
+        var project = projectRepository.findAll();
+        return ProjectResponse.builder().projects(project).build();
+    }
+
+
     public SuccessResponse assign(TaskRequest request, String authToken, Integer id) {
         var adminId = utilityService.extract(authToken);
         var admin = userRepository.findByUsername(adminId).orElseThrow(() -> new ExpressionException("No user Found"));
@@ -46,7 +56,7 @@ public class ProjectServiceImpl implements ProjectService {
             return SuccessResponse.builder().statusCode(404).statusMessage("Doesn't have admin permission").build();
         }
 
-        var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ExpressionException("No user Found"));
+        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ExpressionException("No user Found"));
         var project = projectRepository.findById(id).orElseThrow(() -> new ExpressionException("Project doesn't exist"));
 
         var task = ProjectTask.builder().user(user).project(project).title(request.getTitle()).description(request.getDescription()).assignedOn(new Date()).targetTime(request.getTargetTime()).isCompleted(false).status(TaskStatus.WORKING).build();
@@ -73,8 +83,8 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         var task = taskRepository.findById(id).orElseThrow(() -> new ExpressionException("No such task exist"));
-        if (request.getUsername() != null) {
-            var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ExpressionException("No user Found"));
+        if (request.getEmail() != null) {
+            var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ExpressionException("No user Found"));
             task.setUser(user);
         }
         if (request.getTitle() != null) {

@@ -2,13 +2,14 @@ package com.backend.erp.controller;
 
 import com.backend.erp.request.ProjectRequest;
 import com.backend.erp.request.TaskRequest;
+import com.backend.erp.response.ProjectResponse;
 import com.backend.erp.response.SuccessResponse;
 import com.backend.erp.response.TaskResponse;
 import com.backend.erp.service.ProjectServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/project")
 @RequiredArgsConstructor
@@ -19,6 +20,11 @@ public class ProjectController {
     @PostMapping("/create")
     public ResponseEntity<SuccessResponse> create(@RequestBody ProjectRequest request, @RequestHeader(value = "Authorization") String authToken) {
         return ResponseEntity.ok(service.create(request, authToken));
+    }
+
+    @GetMapping("/fetchProjects")
+    public ResponseEntity<ProjectResponse> fetchProject(@RequestHeader(value = "Authorization") String authToken) {
+        return ResponseEntity.ok(service.fetchProject(authToken));
     }
 
     @PostMapping("/assign")
