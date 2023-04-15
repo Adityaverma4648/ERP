@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 @RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService {
