@@ -93,7 +93,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\":\"prakhar sahu\",\r\n  \"email\": \"sahuprakhar22003@gmail.com\",\r\n  \"username\":\"prakhar-5447\",\r\n  \"password\": \"jayomsahu2003\"\r\n}",
+							"raw": "{\r\n  \"name\":\"pratham sahu\",\r\n  \"email\": \"sahupratham022003@gmail.com\",\r\n  \"username\":\"pratham-0094\",\r\n  \"password\": \"jayomsahu2003\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,7 +197,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"todo1\",\r\n    \"desc\": \"This is my fifth todo\",\r\n    \"isCompleted\": true,\r\n    \"targetTime\":\"2023-03-21 01:22:33\"\r\n}",
+							"raw": "{\r\n    \"title\": \"todo1\",\r\n    \"desc\": \"This is my second todo\",\r\n    \"isCompleted\": true,\r\n    \"targetTime\":\"2023-03-21 01:22:33\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -370,7 +370,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"prakhar-5447\",\r\n    \"title\": \"5\",\r\n    \"description\": \"i am working on this task\",\r\n    \"targetTime\": \"2023-03-21 01:22:33\"\r\n}",
+							"raw": "{\r\n    \"email\": \"sahupratham022003@gmail.com\",\r\n    \"title\": \"5\",\r\n    \"description\": \"i am working on this task\",\r\n    \"targetTime\": \"2023-03-21 01:22:33\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -469,6 +469,36 @@
 					"response": []
 				},
 				{
+					"name": "fetch all Projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/project/fetchProjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project",
+								"fetchProjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "delete task",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -533,7 +563,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"pratham-0094\",\r\n    \"report\":\"A platform for Team Management. This is my report for the task that is given to me. i completed on time\",\r\n    \"taskId\":4,\r\n    \"url\":\"https://github.com/prakhar-5447\"\r\n}",
+							"raw": "{\r\n    \"report\":\"A platform for Team Management. This is my report for the task that is given to me. i completed on time\",\r\n    \"taskId\":3,\r\n    \"url\":\"https://github.com/prakhar-5447\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
