@@ -14,11 +14,10 @@ const initialState = {
 const SignUp = () => {
 
   //  useState Hoooks
-
+  const navigate = useNavigate();
  const [formValue , setFormValue] = useState(initialState);
  const { username , email, password} = formValue;
  const [visibility, setVisibility] = useState(false);
- const navigate = useNavigate();
 
   //  helper , getter , feature function----------------------------------------------------------------------------------------------------------------------------
   const setCheckedFun = (e) => {

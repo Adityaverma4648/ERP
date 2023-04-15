@@ -1,6 +1,5 @@
-import React, { useState , useEffect } from "react";
+import React, { useState } from "react";
 import {FaEye , FaEyeSlash} from "react-icons/fa";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Dashboard from "../components/toggleButton";
 
@@ -9,15 +8,14 @@ const initialState = {
    password : "",
 };
 
-
 const Login = () => {
+  const navigate = useNavigate();
   const [formValue , setFormValue] = useState(initialState);
   const { email , password} = formValue;
   const [visibility, setVisibility] = useState(false);
   const [isLoggedIn, setIsLoggedIn ] = useState(false);
   const [token, setToken] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const navigate = useNavigate();
 
 
   const setCheckedFun = (e) => {
@@ -48,8 +46,6 @@ const Login = () => {
           }
         })
            const result = await response.json();
-           console.log(result);
-           alert(result)
            if(result.message === "success"){
                alert(result.message);
                setIsLoggedIn(true);
@@ -57,6 +53,7 @@ const Login = () => {
                setUserEmail(email)
                localStorage.setItem("userEmail", email);
                localStorage.setItem("login_token", result.token );
+               navigate("/");
           }else{
                alert(result.message);
                setIsLoggedIn(false);

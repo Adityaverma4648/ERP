@@ -10,7 +10,7 @@ import Event from "./Pages/Event";
 import ToDoList from "./Pages/ToDoList";
 import Report from "./Pages/Report";
 import Setting from "./Pages/Setting";
-import ModalContainer from './Pages/ModalContainer';
+import axios from "axios";
 
 function App() {
 
@@ -36,9 +36,25 @@ function App() {
          setIsLoggedIn(true);
     }
   }
-
+  const userDataFetcher = async() =>{
+    try {
+      const response = await axios.post("http://localhost:8080/auth/fetch",{
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'Authorization': "Bearer " + token,
+      }
+      })
+      const userData = response.json();
+      console.log(userData);
+      return userData;
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
      statusChecker();
+     userDataFetcher();
+
   }, [])
   
 

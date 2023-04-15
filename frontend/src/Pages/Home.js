@@ -45,7 +45,7 @@ const Home = (props,{handleVisibility}) => {
         </div>
          </div>
           <Welcome />
-          {isLoggedIn ? <Project handleVisibility={handleVisibility} role={role} /> : <LockedFeature />}
+          {isLoggedIn ? <Project handleVisibility={handleVisibility} role={role} /> : <LockedFeature block="project" />}
           
     </div>
   )

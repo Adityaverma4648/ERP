@@ -8,7 +8,7 @@ const ModalContainer = ({handleVisibility}) => {
 
   return (
     <div className='h-screen w-screen flex justify-center items-center absolute top-0' >
-         {theme === "project"  ? <ProjectModal  /> : console.log("Projects Modal Was Avoided")}
+         {theme === "project"  ? <ProjectModal handleVisibility= {handleVisibility}  /> : console.log("Projects Modal Was Avoided")}
          <div className='top-0 w-screen absolute min-h-screen bg-black/50 z-30 flex justify-center items-center' onClick={(e)=>{handleVisibility(false)}} >
          </div> 
          
