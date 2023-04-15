@@ -9,8 +9,8 @@ import com.backend.erp.service.ProjectServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin
 @RestController
+@CrossOrigin
 @RequestMapping("/project")
 @RequiredArgsConstructor
 public class ProjectController {

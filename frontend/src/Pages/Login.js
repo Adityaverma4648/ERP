@@ -53,7 +53,9 @@ const Login = () => {
                setUserEmail(email)
                localStorage.setItem("userEmail", email);
                localStorage.setItem("login_token", result.token );
-               navigate("/");
+               if(email && token){
+                  navigate("/");
+               }
           }else{
                alert(result.message);
                setIsLoggedIn(false);

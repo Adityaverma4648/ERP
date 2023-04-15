@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProjectModal from "../components/Modal/ProjectModal";
 
-const ModalContainer = ({handleVisibility}) => {
+const ModalContainer = ({handleVisibility},props) => {
 
   const [visibility, setVisibility] = useState(false);
   const [theme, setTheme] = useState("project");

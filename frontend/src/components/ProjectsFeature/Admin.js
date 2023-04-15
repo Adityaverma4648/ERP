@@ -15,18 +15,16 @@ const Admin = () => {
         setToken(token);
   },[token])
 
-  const projectFetcher = async() =>{
+  const projectFetcher = async(token) =>{
     try {
-      const response = await axios.post("http://localhost:8000/task/fetch" ,{
-         method : "GET", 
+      const response = await axios.get("http://localhost:8080/project/fetchProjects" ,{
          headers: {
              'Content-type': 'application/json; charset=UTF-8',
              'Authorization': "Bearer " + token,
         }});
-        const result = await response.json();
-        console.log(result , result.status());
-        alert(result)
-       return result;
+      //  const result = await response.json();
+       alert(JSON.stringify(response));
+       return JSON.stringify(response); 
       } catch (error) {
         console.log(error);
         alert(error);
@@ -35,32 +33,21 @@ const Admin = () => {
 
   const handleVisibility = (value) =>{
      setVisibility(value);
-   //   projectFetcher();
-   //   console.log(projectFetcher());
   }
   
     useEffect(() => {
-      //   const data = projectFetcher();
-      const data = [{
-               id : 1,
-               created_at : '15042023',
-               description : 'An Internship App',
-               project_name : 'Job Finder',
-               user_id : 'user1',
-            },{
-               id : 2,
-               created_at : '30052023',
-               description : 'An Ecommerce App',
-               project_name : 'Shopzy',
-               user_id : 'user2',
-            }]
-       setProject(data);
+      if(token){  
+          const data = projectFetcher(token);
+          alert("FROM USEEFFECT");
+          alert(JSON.stringify(data));
+          setProject(data);
+      }
     }, [])
     
 
   return (
       <>
-         {visibility ? <ModalContainer handleVisibility={handleVisibility} /> : console.log('Modal Was Avoided')}
+         {visibility && <ModalContainer handleVisibility={handleVisibility} />}
         <div className="z-30 w-full h-full p-2 flex flex-col justify-start items-center" id='adminProjectFeature'>
                {/*  Modal button  */}
                 <div className='w-full flex justify-end items-center'>
@@ -105,9 +92,6 @@ const Admin = () => {
                                        </li> 
                                     )
                                  })}
-
-                               
-
                         </ul>
                     </div>
                  </div>

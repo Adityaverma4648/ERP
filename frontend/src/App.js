@@ -21,12 +21,12 @@ function App() {
 
   useEffect(() => {   
     const user = localStorage.getItem("userEmail");
-    const token = localStorage.getItem("login_token");
+    const myToken = localStorage.getItem("login_token");
     if(user){
       const modifiedUser  = user[0].toUpperCase();
       setUserEmail(modifiedUser);
     }
-    if(token){
+    if(myToken){
       setToken(token);
     }
   }, [userEmail,token])
@@ -53,8 +53,6 @@ function App() {
   }
   useEffect(() => {
      statusChecker();
-     userDataFetcher();
-
   }, [])
   
 

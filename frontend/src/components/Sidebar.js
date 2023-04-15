@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate , useNavigate } from "react-router-dom";
 import {
   FaHome,
   FaCompass,
@@ -51,7 +51,7 @@ const Sidebar = (props) => {
   
 }
 ]
-
+   const navigate = useNavigate();
    const [userEmail, setUserEmail] = useState("");
    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -59,6 +59,8 @@ const Sidebar = (props) => {
       setIsLoggedIn(false);
       localStorage.clear();
       alert("Logout SuccessFull");
+      //  redirecting
+      navigate("/login");
     }
      
     useEffect(()=>{
