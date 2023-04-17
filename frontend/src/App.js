@@ -10,6 +10,7 @@ import Event from "./Pages/Event";
 import ToDoList from "./Pages/ToDoList";
 import Report from "./Pages/Report";
 import Setting from "./Pages/Setting";
+import Projects from "./Pages/Projects";
 import axios from "axios";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   const [userEmail, setUserEmail] = useState("");
   const [token, setToken] = useState("");
 
+
   useEffect(() => {   
     const user = localStorage.getItem("userEmail");
     const myToken = localStorage.getItem("login_token");
@@ -27,33 +29,22 @@ function App() {
       setUserEmail(modifiedUser);
     }
     if(myToken){
-      setToken(token);
+      setToken(myToken);
     }
   }, [userEmail,token])
+  
   
   const statusChecker = () =>{
     if(localStorage.getItem("login_token")){
          setIsLoggedIn(true);
     }
   }
-  const userDataFetcher = async() =>{
-    try {
-      const response = await axios.post("http://localhost:8080/auth/fetch",{
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer " + token,
-      }
-      })
-      const userData = response.json();
-      console.log(userData);
-      return userData;
-    } catch (error) {
-      console.log(error);
-    }
-  }
   useEffect(() => {
      statusChecker();
   }, [])
+  
+
+ 
   
 
   return (
@@ -68,11 +59,14 @@ function App() {
              {/*  auth Routes Ends here */}
 
              {/*  Pages Routes */}
-             <Route path='/explore' element={<Explore isLoggedIn={isLoggedIn}  />} token={token} ></Route>
-             <Route path='/event' element={<Event isLoggedIn={isLoggedIn}  />}  token={token}></Route>
-             <Route path='/toDoList' element={<ToDoList isLoggedIn={isLoggedIn}  />} token={token} ></Route>
-             <Route path='/report' element={<Report isLoggedIn={isLoggedIn} />}  token={token} ></Route>
-             <Route path='/setting' element={<Setting isLoggedIn={isLoggedIn} />}  token={token} ></Route>
+             <Route path='/explore' element={<Explore isLoggedIn={isLoggedIn} token={token} />}  ></Route>
+             <Route path='/event' element={<Event isLoggedIn={isLoggedIn} token={token}/>}  ></Route>
+             <Route path='/toDoList' element={<ToDoList isLoggedIn={isLoggedIn} token={token}  />} ></Route>
+             <Route path='/report' element={<Report isLoggedIn={isLoggedIn} token={token} />}   ></Route>
+             <Route path='/setting' element={<Setting isLoggedIn={isLoggedIn} token={token} />}   ></Route>
+             {
+             <Route path= "/projects" element={<Projects isLoggedIn={isLoggedIn} token={token} />}></Route>
+             }
              {/*  Pages Routes Ends here */}
           </Routes>
       </BrowserRouter>

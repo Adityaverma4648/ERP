@@ -39,14 +39,9 @@ const ProjectModal = (props) => {
     };
   return (
         <div className='text-white w-1/2 h-1/2 bg-gradient-to-br from-gray-900 to-gray-700 z-50 absolute top-50 right-50 rounded-xl flex flex-col justify-start items-center' >
-             <div className='w-full h-1/6 px-2 border border-gray-300/20 flex justify-between items-center' id='ModalHeader' >
+             <div className='w-full h-1/6 px-2 border border-gray-300/20 flex justify-start items-center' id='ModalHeader' >
                     <div className='p-2 text-xl' >
                       Create Project
-                    </div>
-                    <div className='' >
-                          <button type='button' className='p-2' onClick={(e)=>{props.handleVisibility(true)}} >
-                             <FaWindowClose />
-                          </button>
                     </div>
              </div>
              <div className='w-full h-5/6 py-2' id='ModalBody' >
@@ -59,7 +54,7 @@ const ProjectModal = (props) => {
                          name='projectName'
                          value={projectName} 
                          onChange={e =>onInputChange(e)}
-                         className='w-full p-2 text-gray-600' 
+                         className='w-full p-2 placeholder-gray-600 text-gray-600' 
                           placeholder='Project Name' 
                           required />
                     </label>

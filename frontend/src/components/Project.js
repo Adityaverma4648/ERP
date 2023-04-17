@@ -13,15 +13,13 @@ const Project = (props) => {
 
   
   return (
-    <div className='container h-1/2 flex justify-center items-center bg-slate-300 mt-1' >
-          <div className='w-11/12 text-start absolute flex justify-center items-center text-slate-400/30' style={{fontSize : "180px", userSelect : "none"}}>
+    <div className='container h-auto flex flex-col justify-center items-center bg-slate-300 mt-1' >
+          <div className='w-11/12 h-2/12 text-start absolute flex justify-center items-center text-slate-400/30' style={{fontSize : "180px", userSelect : "none"}}>
               Projects
           </div>
-          {role === "user" ? <Admin /> : <User /> }
-          
-          
-        {/*  fetching ongoing Projects  */} 
-                {/*  tracking Progess */}
+          <div className='w-11/12 h-10/12 flex justify-center items-center' >
+             {role === "user" ? <Admin /> : <User /> }
+          </div> 
     </div>
   )
 }
