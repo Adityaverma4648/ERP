@@ -1,10 +1,8 @@
 package com.backend.erp.service;
 
-import com.backend.erp.model.Project;
-import com.backend.erp.model.ProjectTask;
-import com.backend.erp.model.Role;
-import com.backend.erp.model.TaskStatus;
+import com.backend.erp.model.*;
 import com.backend.erp.repository.ProjectRepository;
+import com.backend.erp.repository.ProjectUserListRepository;
 import com.backend.erp.repository.TaskRepository;
 import com.backend.erp.repository.UserRepository;
 import com.backend.erp.request.ProjectRequest;
@@ -12,6 +10,7 @@ import com.backend.erp.request.TaskRequest;
 import com.backend.erp.response.ProjectResponse;
 import com.backend.erp.response.SuccessResponse;
 import com.backend.erp.response.TaskResponse;
+import com.backend.erp.response.UserProjectResponse;
 import com.backend.erp.utility.UtilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.expression.ExpressionException;
@@ -26,6 +25,9 @@ public class ProjectServiceImpl implements ProjectService {
     private final UserRepository userRepository;
 
     private final ProjectRepository projectRepository;
+
+
+    private final ProjectUserListRepository projectUserListRepository;
 
     private final TaskRepository taskRepository;
 
@@ -48,6 +50,27 @@ public class ProjectServiceImpl implements ProjectService {
         return ProjectResponse.builder().projects(project).build();
     }
 
+    public UserProjectResponse fetchUser(String authToken, Integer id) {
+        var username = utilityService.extract(authToken);
+        var admin = userRepository.findByUsername(username).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
+            var user = projectUserListRepository.findByProjectId(id).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
+            return UserProjectResponse.builder().users(user).build();
+        }
+
+
+    public SuccessResponse addUser(String authToken, Integer id, String user) {
+        var username = utilityService.extract(authToken);
+        var admin = userRepository.findByUsername(username).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
+
+        if (admin.getRole() == Role.ADMIN) {
+            var user1 = userRepository.findByUsername(user).orElseThrow(() -> new ExpressionException("No user Found with these credentials"));
+            var project = projectRepository.findById(id).orElseThrow(() -> new ExpressionException("Project doesn't exist"));
+            var projectList = ProjectUserList.builder().user(user1).project(project).build();
+            projectUserListRepository.save(projectList);
+            return SuccessResponse.builder().statusCode(200).statusMessage("User added successfully").build();
+        }
+        return SuccessResponse.builder().statusCode(403).statusMessage("No auth Permission").build();
+    }
 
     public SuccessResponse assign(TaskRequest request, String authToken, Integer id) {
         var adminId = utilityService.extract(authToken);
@@ -103,11 +126,12 @@ public class ProjectServiceImpl implements ProjectService {
     public TaskResponse fetch(String authToken) {
         var userId = utilityService.extract(authToken);
         var user = userRepository.findByUsername(userId).orElseThrow(() -> new ExpressionException("No user Found"));
-        if (user.getRole()==Role.ADMIN){
+        if (user.getRole() == Role.ADMIN) {
             var project = taskRepository.findAll();
             return TaskResponse.builder().task(project).build();
         }
-        var project = taskRepository.findByUserId(user.getId()).orElseThrow(() -> new ExpressionException("No task Found"));;
+        var project = taskRepository.findByUserId(user.getId()).orElseThrow(() -> new ExpressionException("No task Found"));
+        ;
         return TaskResponse.builder().task(project).build();
     }
 }
