@@ -1,12 +1,16 @@
 import React, { useState , useEffect } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import {useLocation} from "react-router-dom";
+import ModalContainer from './ModalContainer';
 
 const Projects = (props) => {
 
    const location = useLocation();
    const { id } = location.state;
    const [project, setProject] = useState([]);
+   const [visibility, setVisibility] = useState(false);
+   const [theme, setTheme] = useState("addUser");
+   const [Task, setTask] = useState([]);
 
    const projectFetcher = async(token) =>{
     try {
@@ -28,19 +32,28 @@ const Projects = (props) => {
         console.log(error);
       }
   }
-
-  
   useEffect(() => {
     projectFetcher(props.token);
  }, [props.token]);
 
+  const addUser = () =>{
+     setVisibility(true);
+     setTheme("addUser");
+  }
+  
+  const handleVisibility = (value) =>{
+     setVisibility(value);
+  }
 
   return (
+     <>
+     {visibility && <ModalContainer myTheme="addUser" handleVisibility={handleVisibility} />}
     <div className='w-screen h-screen flex justify-center items-center'>
       {project.map((d)=>{
          return(
           <div className='md:w-3/4 w-11/12 h md:h-3/4 bg-gray-300 p-5 flex flex-col justify-between items-center' >
-             <div className='w-full flex md:flex-row flex-col justify-between items-center border-b border-gray-500/50 py-2' >
+            <div className='w-full flex flex-col justify-center items-center' >
+            <div className='w-full flex md:flex-row flex-col justify-between items-center border-b border-gray-500/50 py-2' >
                 <div className='text-lg font-semibold text-gray-700' >
                   {d.projectName}
                 </div>
@@ -51,6 +64,11 @@ const Projects = (props) => {
                   <strong className='mx-1 font-light text-gray-500'>{d.createdAt}</strong>
                 </div>
              </div>
+
+             <div className='w-full flex md:flex-row flex-col justify-between items-center  py-2' >
+                  {/*  task list */}
+             </div>
+            </div>
 
 
              <div className='w-full flex md:flex-row flex-col justify-between items-center border-t border-gray-500/50 py-2' >
@@ -63,7 +81,7 @@ const Projects = (props) => {
                    </div>
                 </div>
                 <div className='flex justify-end items-center'>
-                  <button type='button' className='border border-gray-500/50 p-2' >
+                  <button type='button' className='border border-gray-500/50 p-2' onClick={addUser}  >
                       Assign Users
                   </button>
                 </div>
@@ -73,6 +91,7 @@ const Projects = (props) => {
          )
       })}
     </div>
+    </>
   )
 }
 

@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Dashboard from "../components/toggleButton";
 
 const initialState = {
-    email : "",
-   password : "",
+  "email" : "adityaverma4648@gmail.com",
+  "password" : "Clearity@1"
 };
 
 const Login = () => {
@@ -30,24 +30,26 @@ const Login = () => {
   };
 
   const onInputChange = (e)=>{
-      let {name , value } = e.target;
+      let {name, value} = e.target;
       setFormValue({...formValue, [name] : value}); 
   }
 
   //  setting userData and sending it to App.js
 
   const handleSubmission = async (e) => {
+    e.preventDefault()
         try {
           const response = await fetch("http://localhost:8080/auth/authenticate",{
           method : "POST",
-          body : JSON.stringify(formValue), 
           headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+          body : JSON.stringify(formValue), 
         })
-           const result = await response.json();
+        const result = await response.json();
            if(result.message === "success"){
                alert(result.message);
+               console.log(result);
                setIsLoggedIn(true);
                setToken(result.token);
                setUserEmail(email)

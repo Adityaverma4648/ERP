@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProjectModal from "../components/Modal/ProjectModal";
+import AddUser from "../components/Modal/AddUser";
 
-const ModalContainer = ({handleVisibility},props) => {
+const ModalContainer = ({handleVisibility ,  myTheme}) => {
 
   const [visibility, setVisibility] = useState(false);
-  const [theme, setTheme] = useState("project");
+  const [theme, setTheme] = useState("");
+
+  useEffect(()=>{
+    setTheme(myTheme);
+  },[])
 
   return (
     <div className='h-screen w-screen flex justify-center items-center absolute top-0' >
-         {theme === "project"  ? <ProjectModal handleVisibility= {handleVisibility}  /> : console.log("Projects Modal Was Avoided")}
+         {theme === "project"  && <ProjectModal handleVisibility= {handleVisibility}  /> }
+
+         {theme === "addUser"  && <AddUser handleVisibility= {handleVisibility}  />}
          <div className='top-0 w-screen absolute min-h-screen bg-black/50 z-30 flex justify-center items-center' onClick={(e)=>{handleVisibility(false)}} >
          </div> 
          
@@ -16,4 +23,4 @@ const ModalContainer = ({handleVisibility},props) => {
   )
 }
 
-export default ModalContainer
+export default ModalContainer;

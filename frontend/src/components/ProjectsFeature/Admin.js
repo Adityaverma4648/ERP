@@ -100,70 +100,8 @@ const Admin = () => {
 
   return (
       <>
-         {visibility && <ModalContainer handleVisibility={handleVisibility} />}
+         {visibility && <ModalContainer myTheme="project" handleVisibility={handleVisibility} />}
          
-         {/* modal starts here */}
- 
-         {/* <div class="modal fade" id="updateForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                   Update Project
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-              <form className='w-full min-h-full flex flex-col jusitfy-center items-center' onSubmit={handleSubmission} >
-              <label htmlFor="email" className='w-11/12 py-2 my-1' >
-                         <span className='py-2'  >
-                            Update The Email :
-                         </span>
-                         <input type="email" 
-                         className='w-full p-2 border border-black placeholder-gray-600 text-gray-600' 
-                         name='email'
-                         value={email}
-                         onChange={e =>onInputChange(e)}
-                        placeholder='Update Email' required  />
-                    </label>
-                    <label htmlFor="title" className='w-11/12 py-2 my-1' >
-                         <span className='py-2'  >
-                            Enter The Project Name :
-                         </span>
-                         <input type="text" 
-                         name='title'
-                         value={title} 
-                         onChange={e =>onInputChange(e)}
-                         className='w-full p-2 border border-black placeholder-gray-600 text-gray-600' 
-                          placeholder='Project Name' 
-                          required />
-                    </label>
-                    <label htmlFor="description" className='w-11/12 py-2 my-1' >
-                         <span className='py-2'  >
-                            Enter The Project Description:
-                         </span>
-                         <input type="text" 
-                         className='w-full p-2 border border-black placeholder-gray-600 text-gray-600' 
-                         name='description'
-                         value={description}
-                         onChange={e =>onInputChange(e)}
-                        placeholder='Project Description' required  />
-                    </label>
-                    <div className='w-11/12 ' >
-                        <input type="submit" className=' my-4 border border-slate-100 p-2' value="Create"  />
-                    </div>
-                    
-                 </form>
-              </div>
-              <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div> */}
- 
-         {/*  modal ends here */}
         <div className="z-30 w-full h-full p-2 flex flex-col justify-start items-center" id='adminProjectFeature'>
                {/*  Modal button  */}
                 <div className='w-full h-2/12 flex justify-between items-center border-b border-gray-400/50 py-2'>
