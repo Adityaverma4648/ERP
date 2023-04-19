@@ -79,7 +79,7 @@ public class ProjectServiceImpl implements ProjectService {
             return SuccessResponse.builder().statusCode(404).statusMessage("Doesn't have admin permission").build();
         }
 
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ExpressionException("No user Found"));
+        var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ExpressionException("No user Found"));
         var project = projectRepository.findById(id).orElseThrow(() -> new ExpressionException("Project doesn't exist"));
 
         var task = ProjectTask.builder().user(user).project(project).title(request.getTitle()).description(request.getDescription()).assignedOn(new Date()).targetTime(request.getTargetTime()).isCompleted(false).status(TaskStatus.WORKING).build();
@@ -106,8 +106,8 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         var task = taskRepository.findById(id).orElseThrow(() -> new ExpressionException("No such task exist"));
-        if (request.getEmail() != null) {
-            var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ExpressionException("No user Found"));
+        if (request.getUsername() != null) {
+            var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ExpressionException("No user Found"));
             task.setUser(user);
         }
         if (request.getTitle() != null) {
