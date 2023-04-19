@@ -20,7 +20,7 @@ const Login = () => {
 
   const setCheckedFun = (e) => {
     var password = document.getElementById("password");
-    if(visibility){
+    if(e.target.checked){
       setVisibility(false);
       password.setAttribute('type' , "text");
     }else{

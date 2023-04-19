@@ -136,17 +136,21 @@ const Admin = () => {
                                               </div>
                                              </div>
 
-                                             <div className='w-11/12 flex justify-start items-center text-sm' >
+                                             <div className='w-11/12 flex justify-start items-center text-sm text-gray-700' >
                                                 {d.description}
                                              </div>
                                           </div>
 
                                            
-                                           <div className='w-full flex justify-evenly items-center text-sm text-gray-600' >
-                                              <div>
-                                                Created at : {d.createdAt}
+                                           <div className='w-full flex justify-between items-center text-sm text-gray-600' >
+                                           
+                                              <div className='flex'>
+                                                   <div className='font-semibold text-black' >
+                                                     Created at :
+                                                   </div>
+                                                 {d.createdAt}
                                               </div>
-                                              <div className='w-10 h-10 flex justify-center items-center text-black' >
+                                              <div className='w-10 h-10 flex justify-center items-center text-black ms-1' >
                                                   <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" className='rounded-full' alt="avatar" />
                                               </div>
                                           </div>

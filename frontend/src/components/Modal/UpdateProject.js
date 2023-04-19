@@ -8,7 +8,7 @@ const intialState = {
     timeTarget : ""
 };
 
-const AddUser = (props) => {
+const UpdateProject = (props) => {
 
     const [formValue , setFormValue] = useState(intialState);
     const {title , email , description ,targetTime} = formValue;
@@ -25,7 +25,7 @@ const AddUser = (props) => {
     const handleSubmission = async () =>{
         alert(JSON.stringify(formValue));
         try {
-                const response = await axios.post("http://localhost:8080/project/addUser", formValue ,
+                const response = await axios.post("http://localhost:8080/project/assign", formValue ,
                 {
                     headers: {
                       'Content-type': 'application/json; charset=UTF-8',
@@ -43,7 +43,7 @@ const AddUser = (props) => {
         <div className='text-white w-1/2 h-3/4 bg-gradient-to-br from-gray-900 to-gray-700 z-50 absolute top-50 right-50 rounded-xl flex flex-col justify-start items-center' >
              <div className='w-full h-1/6 px-2 border border-gray-300/20 flex justify-start items-center' id='ModalHeader' >
                     <div className='p-2 text-xl' >
-                       Add User
+                      Update Project
                     </div>
              </div>
              <div className='w-full h-5/6 py-2' id='ModalBody' >
@@ -105,4 +105,4 @@ const AddUser = (props) => {
   )
 }
 
-export default AddUser;
+export default UpdateProject;
